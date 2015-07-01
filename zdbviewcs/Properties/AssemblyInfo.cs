@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // 有关程序集的常规信息通过下列属性集
 // 控制。更改这些属性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("zdbviewcs")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("zDbViewCs")]
+[assembly: AssemblyDescription("zyl910's Database viewer (C#) (C#版数据库查看器)")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("zdbviewcs")]
-[assembly: AssemblyCopyright("版权所有 (C) Microsoft 2015")]
+[assembly: AssemblyCompany("zyl910")]
+[assembly: AssemblyProduct("zdbview")]
+[assembly: AssemblyCopyright("Copyright (C) zyl910 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -29,5 +29,5 @@ using System.Runtime.InteropServices;
 //      内部版本号
 //      修订号
 //
-[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.0.0.*")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
