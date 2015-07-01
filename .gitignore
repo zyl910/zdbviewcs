@@ -1,0 +1,9 @@
+*.pidb
+*.suo
+*.user
+*.userprefs
+
+Debug/
+Release/
+obj/
+
