@@ -77,7 +77,28 @@ namespace zdbviewcs {
 		/// <returns></returns>
 		private bool DoShowTableInfo(string tablename) {
 			bool rt = false;
-			// 数据.
+			if (null==tablename) return rt;
+			try {
+				this.Cursor = Cursors.WaitCursor;
+				// 数据.
+				int iwork = cboClickCmd.SelectedIndex;
+				string ssql = null;
+				if (1 == iwork) {
+					ssql = string.Format("select * from {0}", tablename);
+				}
+				else if (2 == iwork) {
+					ssql = string.Format("select count(*) as cnt from {0}", tablename);
+				}
+				if (!string.IsNullOrEmpty(ssql)) {
+					txtSql.Text = ssql;
+					btnExec_Click(btnExec, null);
+				}
+			}
+			finally {
+				this.Cursor = Cursors.Default;
+				//Application.UseWaitCursor = false;
+			}
+			// done.
 			rt = true;
 			return rt;
 		}
@@ -177,6 +198,7 @@ namespace zdbviewcs {
 			DataTable dt = m_conn.GetSchema("Tables");
 			grdTable.DataSource = dt;
 			m_CurTableName = null;
+			tbcInput.SelectedIndex = 1;
 		}
 
 		private void btnClose_Click(object sender, EventArgs e) {
@@ -203,7 +225,36 @@ namespace zdbviewcs {
 		}
 
 		private void btnExec_Click(object sender, EventArgs e) {
-			//
+			if (null == m_conn) return;
+			string ssql = txtSql.Text;
+			if (string.IsNullOrEmpty(ssql)) return;
+			int nlimit;
+			if (!int.TryParse(txtLimit.Text, out nlimit)) nlimit = 0;
+			try {
+				grdData.DataSource = null;
+				using (DbCommand cmd = m_conn.CreateCommand()) {
+					cmd.CommandType = CommandType.Text;
+					cmd.CommandText = ssql;
+					//using(DbDataReader dr = cmd.ExecuteReader()) {
+					//    DataTable dtt= new DataTable();
+					//    dtt.Load(dr);
+					//}
+					using(DbDataAdapter dta = m_provider.CreateDataAdapter()) {
+						dta.SelectCommand = cmd;
+						DataSet dts = new DataSet();
+						if (nlimit > 0) {
+							dta.Fill(dts, 0, nlimit, "src");
+						}
+						else {
+							dta.Fill(dts);
+						}
+						grdData.DataSource = dts.Tables[0];
+					}
+				}
+			}
+			catch (Exception ex) {
+				OutLog(ex.ToString());
+			}
 		}
 
 		private void ZDbViewCsForm_FormClosed(object sender, FormClosedEventArgs e) {

@@ -53,6 +53,7 @@
 			this.txtLog = new System.Windows.Forms.TextBox();
 			this.ttpMain = new System.Windows.Forms.ToolTip(this.components);
 			this.grdTable = new System.Windows.Forms.DataGridView();
+			this.grdData = new System.Windows.Forms.DataGridView();
 			this.spcTool.Panel1.SuspendLayout();
 			this.spcTool.Panel2.SuspendLayout();
 			this.spcTool.SuspendLayout();
@@ -68,9 +69,11 @@
 			this.tbpTable.SuspendLayout();
 			this.tbpTableLog.SuspendLayout();
 			this.tbcGrid.SuspendLayout();
+			this.tbpData.SuspendLayout();
 			this.tbpDataLog.SuspendLayout();
 			this.tbpLog.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.grdTable)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.grdData)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// spcTool
@@ -177,7 +180,7 @@
 			this.txtLimit.Name = "txtLimit";
 			this.txtLimit.Size = new System.Drawing.Size(48, 21);
 			this.txtLimit.TabIndex = 4;
-			this.txtLimit.Text = "1000";
+			this.txtLimit.Text = "100";
 			this.ttpMain.SetToolTip(this.txtLimit, "记录数限制. 若为0则表示不限制.");
 			// 
 			// btnClose
@@ -326,6 +329,7 @@
 			// 
 			// tbpData
 			// 
+			this.tbpData.Controls.Add(this.grdData);
 			this.tbpData.Location = new System.Drawing.Point(4, 22);
 			this.tbpData.Name = "tbpData";
 			this.tbpData.Padding = new System.Windows.Forms.Padding(3);
@@ -393,6 +397,16 @@
 			this.grdTable.TabIndex = 0;
 			this.grdTable.CurrentCellChanged += new System.EventHandler(this.grdTable_CurrentCellChanged);
 			// 
+			// grdData
+			// 
+			this.grdData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.grdData.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.grdData.Location = new System.Drawing.Point(3, 3);
+			this.grdData.Name = "grdData";
+			this.grdData.RowTemplate.Height = 23;
+			this.grdData.Size = new System.Drawing.Size(266, 226);
+			this.grdData.TabIndex = 1;
+			// 
 			// ZDbViewCsForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -422,11 +436,13 @@
 			this.tbpTableLog.ResumeLayout(false);
 			this.tbpTableLog.PerformLayout();
 			this.tbcGrid.ResumeLayout(false);
+			this.tbpData.ResumeLayout(false);
 			this.tbpDataLog.ResumeLayout(false);
 			this.tbpDataLog.PerformLayout();
 			this.tbpLog.ResumeLayout(false);
 			this.tbpLog.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.grdTable)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.grdData)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -462,6 +478,7 @@
 		private System.Windows.Forms.Button btnExec;
 		private System.Windows.Forms.ToolTip ttpMain;
 		private System.Windows.Forms.DataGridView grdTable;
+		private System.Windows.Forms.DataGridView grdData;
 	}
 }
 
