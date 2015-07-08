@@ -132,7 +132,13 @@ namespace zdbviewcs {
 				}
 				catch (Exception ex) {
 					OutLog(ex.Message);
-					m_conn.Dispose();
+					MessageBox.Show(this, ex.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+					try {
+						m_conn.Dispose();
+					}
+					catch (Exception ex2) {
+						OutLog(ex2.ToString());
+					}
 					m_conn = null;
 					return;
 				}
@@ -143,9 +149,12 @@ namespace zdbviewcs {
 				}
 			}
 			// done.
-			btnOpen.Enabled = false;
-			btnClose.Enabled = true;
-			btnExec.Enabled = true;
+			bool isconn = true;
+			btnOpen.Enabled = !isconn;
+			btnClose.Enabled = isconn;
+			btnExec.Enabled = isconn;
+			cboProvider.Enabled = !isconn;
+			txtConnstr.ReadOnly = isconn;
 			OutLog("Db opened.");
 		}
 
@@ -161,9 +170,12 @@ namespace zdbviewcs {
 			}
 			m_conn = null;
 			// done.
-			btnOpen.Enabled = true;
-			btnClose.Enabled = false;
-			btnExec.Enabled = false;
+			bool isconn = false;
+			btnOpen.Enabled = !isconn;
+			btnClose.Enabled = isconn;
+			btnExec.Enabled = isconn;
+			cboProvider.Enabled = !isconn;
+			txtConnstr.ReadOnly = isconn;
 			OutLog("Db closed.");
 		}
 
