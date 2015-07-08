@@ -46,9 +46,9 @@
 			this.tbpTableLog = new System.Windows.Forms.TabPage();
 			this.txtTableLog = new System.Windows.Forms.TextBox();
 			this.tbcGrid = new System.Windows.Forms.TabControl();
-			this.tbpGrid = new System.Windows.Forms.TabPage();
-			this.tbpGridLog = new System.Windows.Forms.TabPage();
-			this.txtGridLog = new System.Windows.Forms.TextBox();
+			this.tbpData = new System.Windows.Forms.TabPage();
+			this.tbpDataLog = new System.Windows.Forms.TabPage();
+			this.txtDataLog = new System.Windows.Forms.TextBox();
 			this.tbpLog = new System.Windows.Forms.TabPage();
 			this.txtLog = new System.Windows.Forms.TextBox();
 			this.ttpMain = new System.Windows.Forms.ToolTip(this.components);
@@ -68,7 +68,7 @@
 			this.tbpTable.SuspendLayout();
 			this.tbpTableLog.SuspendLayout();
 			this.tbcGrid.SuspendLayout();
-			this.tbpGridLog.SuspendLayout();
+			this.tbpDataLog.SuspendLayout();
 			this.tbpLog.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.grdTable)).BeginInit();
 			this.SuspendLayout();
@@ -98,10 +98,10 @@
 			this.tbcInput.Controls.Add(this.tbpConnstr);
 			this.tbcInput.Controls.Add(this.tbpSql);
 			this.tbcInput.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.tbcInput.Location = new System.Drawing.Point(0, 28);
+			this.tbcInput.Location = new System.Drawing.Point(0, 24);
 			this.tbcInput.Name = "tbcInput";
 			this.tbcInput.SelectedIndex = 0;
-			this.tbcInput.Size = new System.Drawing.Size(584, 72);
+			this.tbcInput.Size = new System.Drawing.Size(584, 76);
 			this.tbcInput.TabIndex = 1;
 			// 
 			// tbpConnstr
@@ -110,7 +110,7 @@
 			this.tbpConnstr.Location = new System.Drawing.Point(4, 22);
 			this.tbpConnstr.Name = "tbpConnstr";
 			this.tbpConnstr.Padding = new System.Windows.Forms.Padding(3);
-			this.tbpConnstr.Size = new System.Drawing.Size(576, 46);
+			this.tbpConnstr.Size = new System.Drawing.Size(576, 50);
 			this.tbpConnstr.TabIndex = 0;
 			this.tbpConnstr.Text = "ConnectionString";
 			this.tbpConnstr.UseVisualStyleBackColor = true;
@@ -122,7 +122,7 @@
 			this.txtConnstr.Multiline = true;
 			this.txtConnstr.Name = "txtConnstr";
 			this.txtConnstr.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.txtConnstr.Size = new System.Drawing.Size(570, 40);
+			this.txtConnstr.Size = new System.Drawing.Size(570, 44);
 			this.txtConnstr.TabIndex = 0;
 			// 
 			// tbpSql
@@ -157,7 +157,7 @@
 			this.pnlTool.Dock = System.Windows.Forms.DockStyle.Top;
 			this.pnlTool.Location = new System.Drawing.Point(0, 0);
 			this.pnlTool.Name = "pnlTool";
-			this.pnlTool.Size = new System.Drawing.Size(584, 28);
+			this.pnlTool.Size = new System.Drawing.Size(584, 24);
 			this.pnlTool.TabIndex = 0;
 			// 
 			// btnExec
@@ -314,8 +314,8 @@
 			// 
 			// tbcGrid
 			// 
-			this.tbcGrid.Controls.Add(this.tbpGrid);
-			this.tbcGrid.Controls.Add(this.tbpGridLog);
+			this.tbcGrid.Controls.Add(this.tbpData);
+			this.tbcGrid.Controls.Add(this.tbpDataLog);
 			this.tbcGrid.Controls.Add(this.tbpLog);
 			this.tbcGrid.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tbcGrid.Location = new System.Drawing.Point(0, 0);
@@ -324,39 +324,39 @@
 			this.tbcGrid.Size = new System.Drawing.Size(280, 258);
 			this.tbcGrid.TabIndex = 0;
 			// 
-			// tbpGrid
+			// tbpData
 			// 
-			this.tbpGrid.Location = new System.Drawing.Point(4, 22);
-			this.tbpGrid.Name = "tbpGrid";
-			this.tbpGrid.Padding = new System.Windows.Forms.Padding(3);
-			this.tbpGrid.Size = new System.Drawing.Size(272, 232);
-			this.tbpGrid.TabIndex = 0;
-			this.tbpGrid.Text = "Grid";
-			this.tbpGrid.UseVisualStyleBackColor = true;
+			this.tbpData.Location = new System.Drawing.Point(4, 22);
+			this.tbpData.Name = "tbpData";
+			this.tbpData.Padding = new System.Windows.Forms.Padding(3);
+			this.tbpData.Size = new System.Drawing.Size(272, 232);
+			this.tbpData.TabIndex = 0;
+			this.tbpData.Text = "Data";
+			this.tbpData.UseVisualStyleBackColor = true;
 			// 
-			// tbpGridLog
+			// tbpDataLog
 			// 
-			this.tbpGridLog.Controls.Add(this.txtGridLog);
-			this.tbpGridLog.Location = new System.Drawing.Point(4, 22);
-			this.tbpGridLog.Name = "tbpGridLog";
-			this.tbpGridLog.Padding = new System.Windows.Forms.Padding(3);
-			this.tbpGridLog.Size = new System.Drawing.Size(272, 232);
-			this.tbpGridLog.TabIndex = 1;
-			this.tbpGridLog.Text = "GridLog";
-			this.tbpGridLog.UseVisualStyleBackColor = true;
+			this.tbpDataLog.Controls.Add(this.txtDataLog);
+			this.tbpDataLog.Location = new System.Drawing.Point(4, 22);
+			this.tbpDataLog.Name = "tbpDataLog";
+			this.tbpDataLog.Padding = new System.Windows.Forms.Padding(3);
+			this.tbpDataLog.Size = new System.Drawing.Size(272, 232);
+			this.tbpDataLog.TabIndex = 1;
+			this.tbpDataLog.Text = "DataLog";
+			this.tbpDataLog.UseVisualStyleBackColor = true;
 			// 
-			// txtGridLog
+			// txtDataLog
 			// 
-			this.txtGridLog.BackColor = System.Drawing.SystemColors.ButtonFace;
-			this.txtGridLog.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.txtGridLog.Location = new System.Drawing.Point(3, 3);
-			this.txtGridLog.Multiline = true;
-			this.txtGridLog.Name = "txtGridLog";
-			this.txtGridLog.ReadOnly = true;
-			this.txtGridLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.txtGridLog.Size = new System.Drawing.Size(266, 226);
-			this.txtGridLog.TabIndex = 2;
-			this.txtGridLog.WordWrap = false;
+			this.txtDataLog.BackColor = System.Drawing.SystemColors.ButtonFace;
+			this.txtDataLog.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.txtDataLog.Location = new System.Drawing.Point(3, 3);
+			this.txtDataLog.Multiline = true;
+			this.txtDataLog.Name = "txtDataLog";
+			this.txtDataLog.ReadOnly = true;
+			this.txtDataLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+			this.txtDataLog.Size = new System.Drawing.Size(266, 226);
+			this.txtDataLog.TabIndex = 2;
+			this.txtDataLog.WordWrap = false;
 			// 
 			// tbpLog
 			// 
@@ -391,6 +391,7 @@
 			this.grdTable.RowTemplate.Height = 23;
 			this.grdTable.Size = new System.Drawing.Size(286, 226);
 			this.grdTable.TabIndex = 0;
+			this.grdTable.CurrentCellChanged += new System.EventHandler(this.grdTable_CurrentCellChanged);
 			// 
 			// ZDbViewCsForm
 			// 
@@ -421,8 +422,8 @@
 			this.tbpTableLog.ResumeLayout(false);
 			this.tbpTableLog.PerformLayout();
 			this.tbcGrid.ResumeLayout(false);
-			this.tbpGridLog.ResumeLayout(false);
-			this.tbpGridLog.PerformLayout();
+			this.tbpDataLog.ResumeLayout(false);
+			this.tbpDataLog.PerformLayout();
 			this.tbpLog.ResumeLayout(false);
 			this.tbpLog.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.grdTable)).EndInit();
@@ -448,10 +449,10 @@
 		private System.Windows.Forms.TabPage tbpTable;
 		private System.Windows.Forms.TabPage tbpTableLog;
 		private System.Windows.Forms.TabControl tbcGrid;
-		private System.Windows.Forms.TabPage tbpGrid;
-		private System.Windows.Forms.TabPage tbpGridLog;
+		private System.Windows.Forms.TabPage tbpData;
+		private System.Windows.Forms.TabPage tbpDataLog;
 		private System.Windows.Forms.TextBox txtTableLog;
-		private System.Windows.Forms.TextBox txtGridLog;
+		private System.Windows.Forms.TextBox txtDataLog;
 		private System.Windows.Forms.TabPage tbpLog;
 		private System.Windows.Forms.TextBox txtLog;
 		private System.Windows.Forms.ComboBox cboClickCmd;

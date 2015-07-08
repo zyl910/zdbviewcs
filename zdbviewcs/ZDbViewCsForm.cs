@@ -18,12 +18,17 @@ namespace zdbviewcs {
 		/// <summary>
 		/// 当前数据库提供者.
 		/// </summary>
-		DbProviderFactory m_provider = null;
+		private DbProviderFactory m_provider = null;
 
 		/// <summary>
 		/// 当前数据库连接.
 		/// </summary>
-		DbConnection m_conn = null;
+		private DbConnection m_conn = null;
+
+		/// <summary>
+		/// 当前表名.
+		/// </summary>
+		private string m_CurTableName = null;
 
 
 		/// <summary>
@@ -63,6 +68,18 @@ namespace zdbviewcs {
 			txtLog.Select(txtLog.Text.Length, 0);
 			txtLog.SelectedText = s + Environment.NewLine;
 			txtLog.Select(txtLog.Text.Length, 0);
+		}
+
+		/// <summary>
+		/// 显示数据表信息.
+		/// </summary>
+		/// <param name="tablename">表名</param>
+		/// <returns></returns>
+		private bool DoShowTableInfo(string tablename) {
+			bool rt = false;
+			// 数据.
+			rt = true;
+			return rt;
 		}
 
 		public ZDbViewCsForm() {
@@ -159,6 +176,7 @@ namespace zdbviewcs {
 			// show tables.
 			DataTable dt = m_conn.GetSchema("Tables");
 			grdTable.DataSource = dt;
+			m_CurTableName = null;
 		}
 
 		private void btnClose_Click(object sender, EventArgs e) {
@@ -181,6 +199,7 @@ namespace zdbviewcs {
 			txtConnstr.ReadOnly = isconn;
 			OutLog("Db closed.");
 			grdTable.DataSource = null;
+			m_CurTableName = null;
 		}
 
 		private void btnExec_Click(object sender, EventArgs e) {
@@ -198,6 +217,22 @@ namespace zdbviewcs {
 				m_conn = null;
 			}
 			m_provider = null;
+		}
+
+		private void grdTable_CurrentCellChanged(object sender, EventArgs e) {
+			string stable = null;
+			try {
+				stable = grdTable.CurrentRow.Cells["TABLE_NAME"].Value.ToString();
+			}
+			catch (Exception ex) {
+				OutLog(ex.Message);
+				return;
+			}
+			if (string.IsNullOrEmpty(stable)) return;
+			if (stable.Equals(m_CurTableName)) return;
+			m_CurTableName = stable;
+			Trace.TraceInformation("Current table: {0}", m_CurTableName);
+			DoShowTableInfo(m_CurTableName);
 		}
 
 	}
