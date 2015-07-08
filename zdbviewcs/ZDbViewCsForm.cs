@@ -230,6 +230,7 @@ namespace zdbviewcs {
 			if (string.IsNullOrEmpty(ssql)) return;
 			int nlimit;
 			if (!int.TryParse(txtLimit.Text, out nlimit)) nlimit = 0;
+			OutLog(ssql);
 			try {
 				grdData.DataSource = null;
 				using (DbCommand cmd = m_conn.CreateCommand()) {
@@ -279,6 +280,7 @@ namespace zdbviewcs {
 		private void grdTable_CurrentCellChanged(object sender, EventArgs e) {
 			string stable = null;
 			try {
+				if (null == grdTable.CurrentRow) return;
 				stable = grdTable.CurrentRow.Cells["TABLE_NAME"].Value.ToString();
 			}
 			catch (Exception ex) {
@@ -290,6 +292,12 @@ namespace zdbviewcs {
 			m_CurTableName = stable;
 			Trace.TraceInformation("Current table: {0}", m_CurTableName);
 			DoShowTableInfo(m_CurTableName);
+		}
+
+		private void grdData_DataError(object sender, DataGridViewDataErrorEventArgs e) {
+			e.Cancel = true;
+			Trace.TraceWarning("{0}, {1}: {2}", e.RowIndex, e.ColumnIndex, e.Exception.ToString());
+			OutLog(string.Format("{0}, {1}: {2}", e.RowIndex, e.ColumnIndex, e.Exception.Message));
 		}
 
 	}

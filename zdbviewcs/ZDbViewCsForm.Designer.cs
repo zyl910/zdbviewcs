@@ -409,6 +409,7 @@
 			this.grdData.RowTemplate.Height = 23;
 			this.grdData.Size = new System.Drawing.Size(266, 226);
 			this.grdData.TabIndex = 1;
+			this.grdData.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.grdData_DataError);
 			// 
 			// grdDataSchema
 			// 
