@@ -235,10 +235,6 @@ namespace zdbviewcs {
 				using (DbCommand cmd = m_conn.CreateCommand()) {
 					cmd.CommandType = CommandType.Text;
 					cmd.CommandText = ssql;
-					//using(DbDataReader dr = cmd.ExecuteReader()) {
-					//    DataTable dtt= new DataTable();
-					//    dtt.Load(dr);
-					//}
 					using(DbDataAdapter dta = m_provider.CreateDataAdapter()) {
 						dta.SelectCommand = cmd;
 						DataSet dts = new DataSet();
@@ -249,6 +245,16 @@ namespace zdbviewcs {
 							dta.Fill(dts);
 						}
 						grdData.DataSource = dts.Tables[0];
+						//DataSet dts2 = new DataSet();
+						//dta.FillSchema(dts2, SchemaType.Mapped);
+						//grdDataSchema.DataSource = dts2.Tables[0];
+						//DataTable dtt = new DataTable();
+						//dta.FillSchema(dtt, SchemaType.Source);
+						//grdDataSchema.DataSource = dtt;
+					}
+					using (DbDataReader dr = cmd.ExecuteReader()) {
+						DataTable dtt = dr.GetSchemaTable();
+						grdDataSchema.DataSource = dtt;
 					}
 				}
 			}

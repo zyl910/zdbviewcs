@@ -47,13 +47,14 @@
 			this.txtTableLog = new System.Windows.Forms.TextBox();
 			this.tbcGrid = new System.Windows.Forms.TabControl();
 			this.tbpData = new System.Windows.Forms.TabPage();
-			this.tbpDataLog = new System.Windows.Forms.TabPage();
+			this.tbpDataSchema = new System.Windows.Forms.TabPage();
 			this.txtDataLog = new System.Windows.Forms.TextBox();
 			this.tbpLog = new System.Windows.Forms.TabPage();
 			this.txtLog = new System.Windows.Forms.TextBox();
 			this.ttpMain = new System.Windows.Forms.ToolTip(this.components);
 			this.grdTable = new System.Windows.Forms.DataGridView();
 			this.grdData = new System.Windows.Forms.DataGridView();
+			this.grdDataSchema = new System.Windows.Forms.DataGridView();
 			this.spcTool.Panel1.SuspendLayout();
 			this.spcTool.Panel2.SuspendLayout();
 			this.spcTool.SuspendLayout();
@@ -70,10 +71,11 @@
 			this.tbpTableLog.SuspendLayout();
 			this.tbcGrid.SuspendLayout();
 			this.tbpData.SuspendLayout();
-			this.tbpDataLog.SuspendLayout();
+			this.tbpDataSchema.SuspendLayout();
 			this.tbpLog.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.grdTable)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.grdData)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.grdDataSchema)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// spcTool
@@ -318,7 +320,7 @@
 			// tbcGrid
 			// 
 			this.tbcGrid.Controls.Add(this.tbpData);
-			this.tbcGrid.Controls.Add(this.tbpDataLog);
+			this.tbcGrid.Controls.Add(this.tbpDataSchema);
 			this.tbcGrid.Controls.Add(this.tbpLog);
 			this.tbcGrid.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tbcGrid.Location = new System.Drawing.Point(0, 0);
@@ -338,16 +340,17 @@
 			this.tbpData.Text = "Data";
 			this.tbpData.UseVisualStyleBackColor = true;
 			// 
-			// tbpDataLog
+			// tbpDataSchema
 			// 
-			this.tbpDataLog.Controls.Add(this.txtDataLog);
-			this.tbpDataLog.Location = new System.Drawing.Point(4, 22);
-			this.tbpDataLog.Name = "tbpDataLog";
-			this.tbpDataLog.Padding = new System.Windows.Forms.Padding(3);
-			this.tbpDataLog.Size = new System.Drawing.Size(272, 232);
-			this.tbpDataLog.TabIndex = 1;
-			this.tbpDataLog.Text = "DataLog";
-			this.tbpDataLog.UseVisualStyleBackColor = true;
+			this.tbpDataSchema.Controls.Add(this.grdDataSchema);
+			this.tbpDataSchema.Controls.Add(this.txtDataLog);
+			this.tbpDataSchema.Location = new System.Drawing.Point(4, 22);
+			this.tbpDataSchema.Name = "tbpDataSchema";
+			this.tbpDataSchema.Padding = new System.Windows.Forms.Padding(3);
+			this.tbpDataSchema.Size = new System.Drawing.Size(272, 232);
+			this.tbpDataSchema.TabIndex = 1;
+			this.tbpDataSchema.Text = "DataSchema";
+			this.tbpDataSchema.UseVisualStyleBackColor = true;
 			// 
 			// txtDataLog
 			// 
@@ -407,6 +410,16 @@
 			this.grdData.Size = new System.Drawing.Size(266, 226);
 			this.grdData.TabIndex = 1;
 			// 
+			// grdDataSchema
+			// 
+			this.grdDataSchema.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.grdDataSchema.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.grdDataSchema.Location = new System.Drawing.Point(3, 3);
+			this.grdDataSchema.Name = "grdDataSchema";
+			this.grdDataSchema.RowTemplate.Height = 23;
+			this.grdDataSchema.Size = new System.Drawing.Size(266, 226);
+			this.grdDataSchema.TabIndex = 3;
+			// 
 			// ZDbViewCsForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -437,12 +450,13 @@
 			this.tbpTableLog.PerformLayout();
 			this.tbcGrid.ResumeLayout(false);
 			this.tbpData.ResumeLayout(false);
-			this.tbpDataLog.ResumeLayout(false);
-			this.tbpDataLog.PerformLayout();
+			this.tbpDataSchema.ResumeLayout(false);
+			this.tbpDataSchema.PerformLayout();
 			this.tbpLog.ResumeLayout(false);
 			this.tbpLog.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.grdTable)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.grdData)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.grdDataSchema)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -466,7 +480,7 @@
 		private System.Windows.Forms.TabPage tbpTableLog;
 		private System.Windows.Forms.TabControl tbcGrid;
 		private System.Windows.Forms.TabPage tbpData;
-		private System.Windows.Forms.TabPage tbpDataLog;
+		private System.Windows.Forms.TabPage tbpDataSchema;
 		private System.Windows.Forms.TextBox txtTableLog;
 		private System.Windows.Forms.TextBox txtDataLog;
 		private System.Windows.Forms.TabPage tbpLog;
@@ -479,6 +493,7 @@
 		private System.Windows.Forms.ToolTip ttpMain;
 		private System.Windows.Forms.DataGridView grdTable;
 		private System.Windows.Forms.DataGridView grdData;
+		private System.Windows.Forms.DataGridView grdDataSchema;
 	}
 }
 
