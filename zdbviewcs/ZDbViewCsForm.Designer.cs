@@ -31,27 +31,28 @@
 			this.tbpSql = new System.Windows.Forms.TabPage();
 			this.txtSql = new System.Windows.Forms.TextBox();
 			this.pnlTool = new System.Windows.Forms.Panel();
+			this.btnExec = new System.Windows.Forms.Button();
+			this.txtLimit = new System.Windows.Forms.TextBox();
+			this.btnClose = new System.Windows.Forms.Button();
+			this.btnOpen = new System.Windows.Forms.Button();
 			this.cboProvider = new System.Windows.Forms.ComboBox();
 			this.lblProvider = new System.Windows.Forms.Label();
 			this.mnuPopup = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.mnuPopupProviderRefresh = new System.Windows.Forms.ToolStripMenuItem();
 			this.spcList = new System.Windows.Forms.SplitContainer();
-			this.tbcList = new System.Windows.Forms.TabControl();
-			this.tbpList = new System.Windows.Forms.TabPage();
-			this.tbpListLog = new System.Windows.Forms.TabPage();
-			this.txtListLog = new System.Windows.Forms.TextBox();
+			this.cboClickCmd = new System.Windows.Forms.ComboBox();
+			this.tbcMain = new System.Windows.Forms.TabControl();
+			this.tbpTable = new System.Windows.Forms.TabPage();
+			this.tbpTableLog = new System.Windows.Forms.TabPage();
+			this.txtTableLog = new System.Windows.Forms.TextBox();
 			this.tbcGrid = new System.Windows.Forms.TabControl();
 			this.tbpGrid = new System.Windows.Forms.TabPage();
 			this.tbpGridLog = new System.Windows.Forms.TabPage();
 			this.txtGridLog = new System.Windows.Forms.TextBox();
 			this.tbpLog = new System.Windows.Forms.TabPage();
 			this.txtLog = new System.Windows.Forms.TextBox();
-			this.cboClickCmd = new System.Windows.Forms.ComboBox();
-			this.btnOpen = new System.Windows.Forms.Button();
-			this.btnClose = new System.Windows.Forms.Button();
-			this.txtLimit = new System.Windows.Forms.TextBox();
-			this.btnExec = new System.Windows.Forms.Button();
 			this.ttpMain = new System.Windows.Forms.ToolTip(this.components);
+			this.grdTable = new System.Windows.Forms.DataGridView();
 			this.spcTool.Panel1.SuspendLayout();
 			this.spcTool.Panel2.SuspendLayout();
 			this.spcTool.SuspendLayout();
@@ -63,11 +64,13 @@
 			this.spcList.Panel1.SuspendLayout();
 			this.spcList.Panel2.SuspendLayout();
 			this.spcList.SuspendLayout();
-			this.tbcList.SuspendLayout();
-			this.tbpListLog.SuspendLayout();
+			this.tbcMain.SuspendLayout();
+			this.tbpTable.SuspendLayout();
+			this.tbpTableLog.SuspendLayout();
 			this.tbcGrid.SuspendLayout();
 			this.tbpGridLog.SuspendLayout();
 			this.tbpLog.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.grdTable)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// spcTool
@@ -128,7 +131,7 @@
 			this.tbpSql.Location = new System.Drawing.Point(4, 22);
 			this.tbpSql.Name = "tbpSql";
 			this.tbpSql.Padding = new System.Windows.Forms.Padding(3);
-			this.tbpSql.Size = new System.Drawing.Size(576, 34);
+			this.tbpSql.Size = new System.Drawing.Size(576, 46);
 			this.tbpSql.TabIndex = 1;
 			this.tbpSql.Text = "SQL";
 			this.tbpSql.UseVisualStyleBackColor = true;
@@ -140,7 +143,7 @@
 			this.txtSql.Multiline = true;
 			this.txtSql.Name = "txtSql";
 			this.txtSql.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.txtSql.Size = new System.Drawing.Size(570, 28);
+			this.txtSql.Size = new System.Drawing.Size(570, 40);
 			this.txtSql.TabIndex = 1;
 			// 
 			// pnlTool
@@ -156,6 +159,47 @@
 			this.pnlTool.Name = "pnlTool";
 			this.pnlTool.Size = new System.Drawing.Size(584, 28);
 			this.pnlTool.TabIndex = 0;
+			// 
+			// btnExec
+			// 
+			this.btnExec.Enabled = false;
+			this.btnExec.Location = new System.Drawing.Point(508, 1);
+			this.btnExec.Name = "btnExec";
+			this.btnExec.Size = new System.Drawing.Size(64, 23);
+			this.btnExec.TabIndex = 5;
+			this.btnExec.Text = "&Exec";
+			this.btnExec.UseVisualStyleBackColor = true;
+			this.btnExec.Click += new System.EventHandler(this.btnExec_Click);
+			// 
+			// txtLimit
+			// 
+			this.txtLimit.Location = new System.Drawing.Point(454, 3);
+			this.txtLimit.Name = "txtLimit";
+			this.txtLimit.Size = new System.Drawing.Size(48, 21);
+			this.txtLimit.TabIndex = 4;
+			this.txtLimit.Text = "1000";
+			this.ttpMain.SetToolTip(this.txtLimit, "记录数限制. 若为0则表示不限制.");
+			// 
+			// btnClose
+			// 
+			this.btnClose.Enabled = false;
+			this.btnClose.Location = new System.Drawing.Point(384, 1);
+			this.btnClose.Name = "btnClose";
+			this.btnClose.Size = new System.Drawing.Size(64, 23);
+			this.btnClose.TabIndex = 3;
+			this.btnClose.Text = "&Close";
+			this.btnClose.UseVisualStyleBackColor = true;
+			this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+			// 
+			// btnOpen
+			// 
+			this.btnOpen.Location = new System.Drawing.Point(314, 1);
+			this.btnOpen.Name = "btnOpen";
+			this.btnOpen.Size = new System.Drawing.Size(64, 23);
+			this.btnOpen.TabIndex = 2;
+			this.btnOpen.Text = "&Open";
+			this.btnOpen.UseVisualStyleBackColor = true;
+			this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
 			// 
 			// cboProvider
 			// 
@@ -199,7 +243,7 @@
 			// spcList.Panel1
 			// 
 			this.spcList.Panel1.Controls.Add(this.cboClickCmd);
-			this.spcList.Panel1.Controls.Add(this.tbcList);
+			this.spcList.Panel1.Controls.Add(this.tbcMain);
 			// 
 			// spcList.Panel2
 			// 
@@ -208,50 +252,65 @@
 			this.spcList.SplitterDistance = 300;
 			this.spcList.TabIndex = 0;
 			// 
-			// tbcList
+			// cboClickCmd
 			// 
-			this.tbcList.Controls.Add(this.tbpList);
-			this.tbcList.Controls.Add(this.tbpListLog);
-			this.tbcList.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.tbcList.Location = new System.Drawing.Point(0, 0);
-			this.tbcList.Name = "tbcList";
-			this.tbcList.SelectedIndex = 0;
-			this.tbcList.Size = new System.Drawing.Size(300, 258);
-			this.tbcList.TabIndex = 0;
+			this.cboClickCmd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.cboClickCmd.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cboClickCmd.FormattingEnabled = true;
+			this.cboClickCmd.Items.AddRange(new object[] {
+            "(None)",
+            "select *",
+            "select count(*)"});
+			this.cboClickCmd.Location = new System.Drawing.Point(184, 0);
+			this.cboClickCmd.Name = "cboClickCmd";
+			this.cboClickCmd.Size = new System.Drawing.Size(114, 20);
+			this.cboClickCmd.TabIndex = 1;
 			// 
-			// tbpList
+			// tbcMain
 			// 
-			this.tbpList.Location = new System.Drawing.Point(4, 22);
-			this.tbpList.Name = "tbpList";
-			this.tbpList.Padding = new System.Windows.Forms.Padding(3);
-			this.tbpList.Size = new System.Drawing.Size(292, 232);
-			this.tbpList.TabIndex = 0;
-			this.tbpList.Text = "List";
-			this.tbpList.UseVisualStyleBackColor = true;
+			this.tbcMain.Controls.Add(this.tbpTable);
+			this.tbcMain.Controls.Add(this.tbpTableLog);
+			this.tbcMain.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.tbcMain.Location = new System.Drawing.Point(0, 0);
+			this.tbcMain.Name = "tbcMain";
+			this.tbcMain.SelectedIndex = 0;
+			this.tbcMain.Size = new System.Drawing.Size(300, 258);
+			this.tbcMain.TabIndex = 0;
 			// 
-			// tbpListLog
+			// tbpTable
 			// 
-			this.tbpListLog.Controls.Add(this.txtListLog);
-			this.tbpListLog.Location = new System.Drawing.Point(4, 22);
-			this.tbpListLog.Name = "tbpListLog";
-			this.tbpListLog.Padding = new System.Windows.Forms.Padding(3);
-			this.tbpListLog.Size = new System.Drawing.Size(292, 232);
-			this.tbpListLog.TabIndex = 1;
-			this.tbpListLog.Text = "ListLog";
-			this.tbpListLog.UseVisualStyleBackColor = true;
+			this.tbpTable.Controls.Add(this.grdTable);
+			this.tbpTable.Location = new System.Drawing.Point(4, 22);
+			this.tbpTable.Name = "tbpTable";
+			this.tbpTable.Padding = new System.Windows.Forms.Padding(3);
+			this.tbpTable.Size = new System.Drawing.Size(292, 232);
+			this.tbpTable.TabIndex = 0;
+			this.tbpTable.Text = "Table";
+			this.tbpTable.UseVisualStyleBackColor = true;
 			// 
-			// txtListLog
+			// tbpTableLog
 			// 
-			this.txtListLog.BackColor = System.Drawing.SystemColors.ButtonFace;
-			this.txtListLog.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.txtListLog.Location = new System.Drawing.Point(3, 3);
-			this.txtListLog.Multiline = true;
-			this.txtListLog.Name = "txtListLog";
-			this.txtListLog.ReadOnly = true;
-			this.txtListLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.txtListLog.Size = new System.Drawing.Size(286, 226);
-			this.txtListLog.TabIndex = 1;
-			this.txtListLog.WordWrap = false;
+			this.tbpTableLog.Controls.Add(this.txtTableLog);
+			this.tbpTableLog.Location = new System.Drawing.Point(4, 22);
+			this.tbpTableLog.Name = "tbpTableLog";
+			this.tbpTableLog.Padding = new System.Windows.Forms.Padding(3);
+			this.tbpTableLog.Size = new System.Drawing.Size(292, 232);
+			this.tbpTableLog.TabIndex = 1;
+			this.tbpTableLog.Text = "TableLog";
+			this.tbpTableLog.UseVisualStyleBackColor = true;
+			// 
+			// txtTableLog
+			// 
+			this.txtTableLog.BackColor = System.Drawing.SystemColors.ButtonFace;
+			this.txtTableLog.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.txtTableLog.Location = new System.Drawing.Point(3, 3);
+			this.txtTableLog.Multiline = true;
+			this.txtTableLog.Name = "txtTableLog";
+			this.txtTableLog.ReadOnly = true;
+			this.txtTableLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+			this.txtTableLog.Size = new System.Drawing.Size(286, 226);
+			this.txtTableLog.TabIndex = 1;
+			this.txtTableLog.WordWrap = false;
 			// 
 			// tbcGrid
 			// 
@@ -323,60 +382,15 @@
 			this.txtLog.TabIndex = 3;
 			this.txtLog.WordWrap = false;
 			// 
-			// cboClickCmd
+			// grdTable
 			// 
-			this.cboClickCmd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.cboClickCmd.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.cboClickCmd.FormattingEnabled = true;
-			this.cboClickCmd.Items.AddRange(new object[] {
-            "(None)",
-            "select *",
-            "select count(*)"});
-			this.cboClickCmd.Location = new System.Drawing.Point(184, 0);
-			this.cboClickCmd.Name = "cboClickCmd";
-			this.cboClickCmd.Size = new System.Drawing.Size(114, 20);
-			this.cboClickCmd.TabIndex = 1;
-			// 
-			// btnOpen
-			// 
-			this.btnOpen.Location = new System.Drawing.Point(314, 1);
-			this.btnOpen.Name = "btnOpen";
-			this.btnOpen.Size = new System.Drawing.Size(64, 23);
-			this.btnOpen.TabIndex = 2;
-			this.btnOpen.Text = "&Open";
-			this.btnOpen.UseVisualStyleBackColor = true;
-			this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
-			// 
-			// btnClose
-			// 
-			this.btnClose.Enabled = false;
-			this.btnClose.Location = new System.Drawing.Point(384, 1);
-			this.btnClose.Name = "btnClose";
-			this.btnClose.Size = new System.Drawing.Size(64, 23);
-			this.btnClose.TabIndex = 3;
-			this.btnClose.Text = "&Close";
-			this.btnClose.UseVisualStyleBackColor = true;
-			this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
-			// 
-			// txtLimit
-			// 
-			this.txtLimit.Location = new System.Drawing.Point(454, 3);
-			this.txtLimit.Name = "txtLimit";
-			this.txtLimit.Size = new System.Drawing.Size(48, 21);
-			this.txtLimit.TabIndex = 4;
-			this.txtLimit.Text = "1000";
-			this.ttpMain.SetToolTip(this.txtLimit, "记录数限制. 若为0则表示不限制.");
-			// 
-			// btnExec
-			// 
-			this.btnExec.Enabled = false;
-			this.btnExec.Location = new System.Drawing.Point(508, 1);
-			this.btnExec.Name = "btnExec";
-			this.btnExec.Size = new System.Drawing.Size(64, 23);
-			this.btnExec.TabIndex = 5;
-			this.btnExec.Text = "&Exec";
-			this.btnExec.UseVisualStyleBackColor = true;
-			this.btnExec.Click += new System.EventHandler(this.btnExec_Click);
+			this.grdTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.grdTable.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.grdTable.Location = new System.Drawing.Point(3, 3);
+			this.grdTable.Name = "grdTable";
+			this.grdTable.RowTemplate.Height = 23;
+			this.grdTable.Size = new System.Drawing.Size(286, 226);
+			this.grdTable.TabIndex = 0;
 			// 
 			// ZDbViewCsForm
 			// 
@@ -402,14 +416,16 @@
 			this.spcList.Panel1.ResumeLayout(false);
 			this.spcList.Panel2.ResumeLayout(false);
 			this.spcList.ResumeLayout(false);
-			this.tbcList.ResumeLayout(false);
-			this.tbpListLog.ResumeLayout(false);
-			this.tbpListLog.PerformLayout();
+			this.tbcMain.ResumeLayout(false);
+			this.tbpTable.ResumeLayout(false);
+			this.tbpTableLog.ResumeLayout(false);
+			this.tbpTableLog.PerformLayout();
 			this.tbcGrid.ResumeLayout(false);
 			this.tbpGridLog.ResumeLayout(false);
 			this.tbpGridLog.PerformLayout();
 			this.tbpLog.ResumeLayout(false);
 			this.tbpLog.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.grdTable)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -428,13 +444,13 @@
 		private System.Windows.Forms.TextBox txtConnstr;
 		private System.Windows.Forms.TextBox txtSql;
 		private System.Windows.Forms.SplitContainer spcList;
-		private System.Windows.Forms.TabControl tbcList;
-		private System.Windows.Forms.TabPage tbpList;
-		private System.Windows.Forms.TabPage tbpListLog;
+		private System.Windows.Forms.TabControl tbcMain;
+		private System.Windows.Forms.TabPage tbpTable;
+		private System.Windows.Forms.TabPage tbpTableLog;
 		private System.Windows.Forms.TabControl tbcGrid;
 		private System.Windows.Forms.TabPage tbpGrid;
 		private System.Windows.Forms.TabPage tbpGridLog;
-		private System.Windows.Forms.TextBox txtListLog;
+		private System.Windows.Forms.TextBox txtTableLog;
 		private System.Windows.Forms.TextBox txtGridLog;
 		private System.Windows.Forms.TabPage tbpLog;
 		private System.Windows.Forms.TextBox txtLog;
@@ -444,6 +460,7 @@
 		private System.Windows.Forms.Button btnOpen;
 		private System.Windows.Forms.Button btnExec;
 		private System.Windows.Forms.ToolTip ttpMain;
+		private System.Windows.Forms.DataGridView grdTable;
 	}
 }
 

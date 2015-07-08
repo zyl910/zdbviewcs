@@ -156,6 +156,9 @@ namespace zdbviewcs {
 			cboProvider.Enabled = !isconn;
 			txtConnstr.ReadOnly = isconn;
 			OutLog("Db opened.");
+			// show tables.
+			DataTable dt = m_conn.GetSchema("Tables");
+			grdTable.DataSource = dt;
 		}
 
 		private void btnClose_Click(object sender, EventArgs e) {
@@ -177,6 +180,7 @@ namespace zdbviewcs {
 			cboProvider.Enabled = !isconn;
 			txtConnstr.ReadOnly = isconn;
 			OutLog("Db closed.");
+			grdTable.DataSource = null;
 		}
 
 		private void btnExec_Click(object sender, EventArgs e) {
