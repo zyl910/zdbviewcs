@@ -30,6 +30,10 @@ namespace zdbviewcs {
 		/// </summary>
 		private string m_CurTableName = null;
 
+		/// <summary>
+		/// 当前弹出菜单所关联的网格控件.
+		/// </summary>
+		private DataGridView m_CurPopupGrid = null;
 
 		/// <summary>
 		/// 将数据表转为xml.
@@ -240,7 +244,7 @@ namespace zdbviewcs {
 						dta.SelectCommand = cmd;
 						DataSet dts = new DataSet();
 						if (nlimit > 0) {
-							dta.Fill(dts, 0, nlimit, "src");
+							dta.Fill(dts, 0, nlimit, "Table");
 						}
 						else {
 							dta.Fill(dts);
@@ -298,6 +302,126 @@ namespace zdbviewcs {
 			e.Cancel = true;
 			Trace.TraceWarning("{0}, {1}: {2}", e.RowIndex, e.ColumnIndex, e.Exception.ToString());
 			OutLog(string.Format("{0}, {1}: {2}", e.RowIndex, e.ColumnIndex, e.Exception.Message));
+		}
+
+		private void mnuGridCopyValue_Click(object sender, EventArgs e) {
+			DataGridView grd = mnuGrid.SourceControl as DataGridView;
+			if (null == grd) return;
+			if (grd.RowCount <= 0) return;
+			//DataTable dtt = grd.DataSource as DataTable;
+			//if (null == dtt) return;
+			// make.
+			StringBuilder sb = new StringBuilder();
+			//DataGridViewSelectedColumnCollection dgvscs = grd.SelectedColumns;	// 只有整列选择时，才会在 SelectedColumns属性中.
+			//foreach (DataGridViewRow dgvr in grd.SelectedRows) {
+			//    if (sb.Length > 0) sb.AppendLine();
+			//    for (int i = 0; i < dgvscs.Count - 1; ++i) {
+			//        string s = string.Empty;
+			//        DataGridViewColumn dgvc = dgvscs[i];
+			//        DataGridViewCell dgve = dgvr.Cells[dgvc.Index];
+			//        if (dgve.Selected) {
+			//            if (null != dgve.Value) s = dgve.Value.ToString();
+			//        }
+			//        //
+			//        if (i>0) sb.Append('\t');
+			//        sb.Append(s);
+			//    }
+			//}
+			foreach (DataGridViewCell dgve in grd.SelectedCells) {
+				if (sb.Length > 0) sb.AppendLine();
+				if (null == dgve) continue;
+				sb.Append(dgve.Value.ToString());
+			}
+			// Clipboard.
+			Clipboard.Clear();
+			if (sb.Length>0)
+				Clipboard.SetText(sb.ToString());
+		}
+
+		private void mnuGridCopyRow_Click(object sender, EventArgs e) {
+			DataGridView grd = mnuGrid.SourceControl as DataGridView;
+			if (null == grd) return;
+			if (grd.RowCount <= 0) return;
+			// make.
+			StringBuilder sb = new StringBuilder();
+			try {
+				// columns.
+				int i = 0;
+				foreach (DataGridViewColumn dgvc in grd.Columns) {
+					if (i > 0) sb.Append('\t');
+					sb.Append(dgvc.HeaderText);
+					// next.
+					++i;
+				}
+				sb.AppendLine();
+				// 计算已选的行.
+				SortedList<int,string> rowindexs = new SortedList<int,string>();
+				foreach (DataGridViewCell dgve in grd.SelectedCells) {
+					int row = dgve.RowIndex;
+					rowindexs.Add(row, null);
+				}
+				// data.
+				foreach(int row in rowindexs.Keys) {
+					DataGridViewRow dgvr = grd.Rows[row];
+					i = 0;
+					foreach (DataGridViewCell dgve in dgvr.Cells) {
+						if (i > 0) sb.Append('\t');
+						if (null!=dgve.Value)
+							sb.Append(dgve.Value.ToString());
+						// next.
+						++i;
+					}
+				}
+			}
+			catch (Exception ex) {
+				Trace.TraceError(ex.ToString());
+				OutLog(ex.Message);
+			}
+			// Clipboard.
+			Clipboard.Clear();
+			if (sb.Length > 0)
+				Clipboard.SetText(sb.ToString());
+		}
+
+		private void mnuGridCopyTable_Click(object sender, EventArgs e) {
+			//
+		}
+
+		private void mnuGridCopyTableXml_Click(object sender, EventArgs e) {
+			DataGridView grd = mnuGrid.SourceControl as DataGridView;
+			if (null == grd) return;
+			if (grd.RowCount <= 0) return;
+			DataTable dtt = grd.DataSource as DataTable;
+			if (null == dtt) return;
+			// make.
+			string sb = ConvertDataTableToXML(dtt);
+			// Clipboard.
+			Clipboard.Clear();
+			if (!string.IsNullOrEmpty(sb))
+				Clipboard.SetText(sb);
+		}
+
+		private void mnuGridExportTable_Click(object sender, EventArgs e) {
+			DataGridView grd = mnuGrid.SourceControl as DataGridView;
+			if (null == grd) return;
+			if (grd.RowCount <= 0) return;
+			DataTable dtt = grd.DataSource as DataTable;
+			if (null == dtt) return;
+			// file.
+			if (dlgSave.ShowDialog(this)!= DialogResult.OK) return;
+			using(FileStream stm = new FileStream(dlgSave.FileName, FileMode.Create)) {
+				XmlTextWriter writer = new XmlTextWriter(stm, Encoding.UTF8);
+				writer.Formatting = Formatting.Indented;
+				writer.WriteStartDocument();
+				dtt.WriteXml(writer);
+				writer.WriteEndDocument();
+			}
+		}
+
+		private void mnuGrid_Opening(object sender, CancelEventArgs e) {
+			DataGridView grd = mnuGrid.SourceControl as DataGridView;
+			if (null == grd) return;
+			//e.Cancel = (null==grd.DataSource);
 		}
 
 	}

@@ -43,18 +43,25 @@
 			this.cboClickCmd = new System.Windows.Forms.ComboBox();
 			this.tbcMain = new System.Windows.Forms.TabControl();
 			this.tbpTable = new System.Windows.Forms.TabPage();
+			this.grdTable = new System.Windows.Forms.DataGridView();
 			this.tbpTableLog = new System.Windows.Forms.TabPage();
 			this.txtTableLog = new System.Windows.Forms.TextBox();
 			this.tbcGrid = new System.Windows.Forms.TabControl();
 			this.tbpData = new System.Windows.Forms.TabPage();
+			this.grdData = new System.Windows.Forms.DataGridView();
 			this.tbpDataSchema = new System.Windows.Forms.TabPage();
+			this.grdDataSchema = new System.Windows.Forms.DataGridView();
 			this.txtDataLog = new System.Windows.Forms.TextBox();
 			this.tbpLog = new System.Windows.Forms.TabPage();
 			this.txtLog = new System.Windows.Forms.TextBox();
 			this.ttpMain = new System.Windows.Forms.ToolTip(this.components);
-			this.grdTable = new System.Windows.Forms.DataGridView();
-			this.grdData = new System.Windows.Forms.DataGridView();
-			this.grdDataSchema = new System.Windows.Forms.DataGridView();
+			this.mnuGrid = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.mnuGridCopyValue = new System.Windows.Forms.ToolStripMenuItem();
+			this.mnuGridCopyRow = new System.Windows.Forms.ToolStripMenuItem();
+			this.mnuGridCopyTable = new System.Windows.Forms.ToolStripMenuItem();
+			this.mnuGridExportTable = new System.Windows.Forms.ToolStripMenuItem();
+			this.mnuGridCopyTableXml = new System.Windows.Forms.ToolStripMenuItem();
+			this.dlgSave = new System.Windows.Forms.SaveFileDialog();
 			this.spcTool.Panel1.SuspendLayout();
 			this.spcTool.Panel2.SuspendLayout();
 			this.spcTool.SuspendLayout();
@@ -68,14 +75,15 @@
 			this.spcList.SuspendLayout();
 			this.tbcMain.SuspendLayout();
 			this.tbpTable.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.grdTable)).BeginInit();
 			this.tbpTableLog.SuspendLayout();
 			this.tbcGrid.SuspendLayout();
 			this.tbpData.SuspendLayout();
-			this.tbpDataSchema.SuspendLayout();
-			this.tbpLog.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.grdTable)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.grdData)).BeginInit();
+			this.tbpDataSchema.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.grdDataSchema)).BeginInit();
+			this.tbpLog.SuspendLayout();
+			this.mnuGrid.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// spcTool
@@ -136,7 +144,7 @@
 			this.tbpSql.Location = new System.Drawing.Point(4, 22);
 			this.tbpSql.Name = "tbpSql";
 			this.tbpSql.Padding = new System.Windows.Forms.Padding(3);
-			this.tbpSql.Size = new System.Drawing.Size(576, 46);
+			this.tbpSql.Size = new System.Drawing.Size(576, 50);
 			this.tbpSql.TabIndex = 1;
 			this.tbpSql.Text = "SQL";
 			this.tbpSql.UseVisualStyleBackColor = true;
@@ -148,7 +156,7 @@
 			this.txtSql.Multiline = true;
 			this.txtSql.Name = "txtSql";
 			this.txtSql.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.txtSql.Size = new System.Drawing.Size(570, 40);
+			this.txtSql.Size = new System.Drawing.Size(570, 44);
 			this.txtSql.TabIndex = 1;
 			// 
 			// pnlTool
@@ -293,6 +301,19 @@
 			this.tbpTable.Text = "Table";
 			this.tbpTable.UseVisualStyleBackColor = true;
 			// 
+			// grdTable
+			// 
+			this.grdTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.grdTable.ContextMenuStrip = this.mnuGrid;
+			this.grdTable.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.grdTable.Location = new System.Drawing.Point(3, 3);
+			this.grdTable.Name = "grdTable";
+			this.grdTable.ReadOnly = true;
+			this.grdTable.RowTemplate.Height = 23;
+			this.grdTable.Size = new System.Drawing.Size(286, 226);
+			this.grdTable.TabIndex = 0;
+			this.grdTable.CurrentCellChanged += new System.EventHandler(this.grdTable_CurrentCellChanged);
+			// 
 			// tbpTableLog
 			// 
 			this.tbpTableLog.Controls.Add(this.txtTableLog);
@@ -340,6 +361,18 @@
 			this.tbpData.Text = "Data";
 			this.tbpData.UseVisualStyleBackColor = true;
 			// 
+			// grdData
+			// 
+			this.grdData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.grdData.ContextMenuStrip = this.mnuGrid;
+			this.grdData.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.grdData.Location = new System.Drawing.Point(3, 3);
+			this.grdData.Name = "grdData";
+			this.grdData.RowTemplate.Height = 23;
+			this.grdData.Size = new System.Drawing.Size(266, 226);
+			this.grdData.TabIndex = 1;
+			this.grdData.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.grdData_DataError);
+			// 
 			// tbpDataSchema
 			// 
 			this.tbpDataSchema.Controls.Add(this.grdDataSchema);
@@ -351,6 +384,17 @@
 			this.tbpDataSchema.TabIndex = 1;
 			this.tbpDataSchema.Text = "DataSchema";
 			this.tbpDataSchema.UseVisualStyleBackColor = true;
+			// 
+			// grdDataSchema
+			// 
+			this.grdDataSchema.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.grdDataSchema.ContextMenuStrip = this.mnuGrid;
+			this.grdDataSchema.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.grdDataSchema.Location = new System.Drawing.Point(3, 3);
+			this.grdDataSchema.Name = "grdDataSchema";
+			this.grdDataSchema.RowTemplate.Height = 23;
+			this.grdDataSchema.Size = new System.Drawing.Size(266, 226);
+			this.grdDataSchema.TabIndex = 3;
 			// 
 			// txtDataLog
 			// 
@@ -389,37 +433,57 @@
 			this.txtLog.TabIndex = 3;
 			this.txtLog.WordWrap = false;
 			// 
-			// grdTable
+			// mnuGrid
 			// 
-			this.grdTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.grdTable.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.grdTable.Location = new System.Drawing.Point(3, 3);
-			this.grdTable.Name = "grdTable";
-			this.grdTable.RowTemplate.Height = 23;
-			this.grdTable.Size = new System.Drawing.Size(286, 226);
-			this.grdTable.TabIndex = 0;
-			this.grdTable.CurrentCellChanged += new System.EventHandler(this.grdTable_CurrentCellChanged);
+			this.mnuGrid.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuGridCopyValue,
+            this.mnuGridCopyRow,
+            this.mnuGridCopyTable,
+            this.mnuGridCopyTableXml,
+            this.mnuGridExportTable});
+			this.mnuGrid.Name = "mnuGrid";
+			this.mnuGrid.Size = new System.Drawing.Size(190, 114);
+			this.mnuGrid.Opening += new System.ComponentModel.CancelEventHandler(this.mnuGrid_Opening);
 			// 
-			// grdData
+			// mnuGridCopyValue
 			// 
-			this.grdData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.grdData.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.grdData.Location = new System.Drawing.Point(3, 3);
-			this.grdData.Name = "grdData";
-			this.grdData.RowTemplate.Height = 23;
-			this.grdData.Size = new System.Drawing.Size(266, 226);
-			this.grdData.TabIndex = 1;
-			this.grdData.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.grdData_DataError);
+			this.mnuGridCopyValue.Name = "mnuGridCopyValue";
+			this.mnuGridCopyValue.Size = new System.Drawing.Size(189, 22);
+			this.mnuGridCopyValue.Text = "Copy &Value";
+			this.mnuGridCopyValue.Click += new System.EventHandler(this.mnuGridCopyValue_Click);
 			// 
-			// grdDataSchema
+			// mnuGridCopyRow
 			// 
-			this.grdDataSchema.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.grdDataSchema.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.grdDataSchema.Location = new System.Drawing.Point(3, 3);
-			this.grdDataSchema.Name = "grdDataSchema";
-			this.grdDataSchema.RowTemplate.Height = 23;
-			this.grdDataSchema.Size = new System.Drawing.Size(266, 226);
-			this.grdDataSchema.TabIndex = 3;
+			this.mnuGridCopyRow.Name = "mnuGridCopyRow";
+			this.mnuGridCopyRow.Size = new System.Drawing.Size(189, 22);
+			this.mnuGridCopyRow.Text = "Copy &Row";
+			this.mnuGridCopyRow.Click += new System.EventHandler(this.mnuGridCopyRow_Click);
+			// 
+			// mnuGridCopyTable
+			// 
+			this.mnuGridCopyTable.Name = "mnuGridCopyTable";
+			this.mnuGridCopyTable.Size = new System.Drawing.Size(189, 22);
+			this.mnuGridCopyTable.Text = "Copy &Table";
+			this.mnuGridCopyTable.Visible = false;
+			this.mnuGridCopyTable.Click += new System.EventHandler(this.mnuGridCopyTable_Click);
+			// 
+			// mnuGridExportTable
+			// 
+			this.mnuGridExportTable.Name = "mnuGridExportTable";
+			this.mnuGridExportTable.Size = new System.Drawing.Size(189, 22);
+			this.mnuGridExportTable.Text = "&Export Table(Xml)...";
+			this.mnuGridExportTable.Click += new System.EventHandler(this.mnuGridExportTable_Click);
+			// 
+			// mnuGridCopyTableXml
+			// 
+			this.mnuGridCopyTableXml.Name = "mnuGridCopyTableXml";
+			this.mnuGridCopyTableXml.Size = new System.Drawing.Size(189, 22);
+			this.mnuGridCopyTableXml.Text = "Copy Table(&Xml)";
+			this.mnuGridCopyTableXml.Click += new System.EventHandler(this.mnuGridCopyTableXml_Click);
+			// 
+			// dlgSave
+			// 
+			this.dlgSave.Filter = "Xml file(*.xml)|*.xml";
 			// 
 			// ZDbViewCsForm
 			// 
@@ -447,17 +511,18 @@
 			this.spcList.ResumeLayout(false);
 			this.tbcMain.ResumeLayout(false);
 			this.tbpTable.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.grdTable)).EndInit();
 			this.tbpTableLog.ResumeLayout(false);
 			this.tbpTableLog.PerformLayout();
 			this.tbcGrid.ResumeLayout(false);
 			this.tbpData.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.grdData)).EndInit();
 			this.tbpDataSchema.ResumeLayout(false);
 			this.tbpDataSchema.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.grdDataSchema)).EndInit();
 			this.tbpLog.ResumeLayout(false);
 			this.tbpLog.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.grdTable)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.grdData)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.grdDataSchema)).EndInit();
+			this.mnuGrid.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -495,6 +560,13 @@
 		private System.Windows.Forms.DataGridView grdTable;
 		private System.Windows.Forms.DataGridView grdData;
 		private System.Windows.Forms.DataGridView grdDataSchema;
+		private System.Windows.Forms.ContextMenuStrip mnuGrid;
+		private System.Windows.Forms.ToolStripMenuItem mnuGridCopyValue;
+		private System.Windows.Forms.ToolStripMenuItem mnuGridCopyRow;
+		private System.Windows.Forms.ToolStripMenuItem mnuGridCopyTable;
+		private System.Windows.Forms.ToolStripMenuItem mnuGridExportTable;
+		private System.Windows.Forms.ToolStripMenuItem mnuGridCopyTableXml;
+		private System.Windows.Forms.SaveFileDialog dlgSave;
 	}
 }
 
