@@ -354,22 +354,40 @@ namespace zdbviewcs {
 					++i;
 				}
 				sb.AppendLine();
-				// 计算已选的行.
-				SortedList<int,string> rowindexs = new SortedList<int,string>();
-				foreach (DataGridViewCell dgve in grd.SelectedCells) {
-					int row = dgve.RowIndex;
-					rowindexs.Add(row, null);
+				if (grd.SelectedRows.Count > 0) {
+					// 当行选时，使用行选信息.
+					foreach (DataGridViewRow dgvr in grd.SelectedRows) {
+						i = 0;
+						foreach (DataGridViewCell dgve in dgvr.Cells) {
+							if (i > 0) sb.Append('\t');
+							if (null != dgve.Value)
+								sb.Append(dgve.Value.ToString());
+							// next.
+							++i;
+						}
+						sb.AppendLine();
+					}
 				}
-				// data.
-				foreach(int row in rowindexs.Keys) {
-					DataGridViewRow dgvr = grd.Rows[row];
-					i = 0;
-					foreach (DataGridViewCell dgve in dgvr.Cells) {
-						if (i > 0) sb.Append('\t');
-						if (null!=dgve.Value)
-							sb.Append(dgve.Value.ToString());
-						// next.
-						++i;
+				else {
+					// 否则使用单元格选择信息.
+					// 计算已选的行.
+					SortedList<int, string> rowindexs = new SortedList<int, string>();
+					foreach (DataGridViewCell dgve in grd.SelectedCells) {
+						int row = dgve.RowIndex;
+						rowindexs.Add(row, null);
+					}
+					// data.
+					foreach (int row in rowindexs.Keys) {
+						DataGridViewRow dgvr = grd.Rows[row];
+						i = 0;
+						foreach (DataGridViewCell dgve in dgvr.Cells) {
+							if (i > 0) sb.Append('\t');
+							if (null != dgve.Value)
+								sb.Append(dgve.Value.ToString());
+							// next.
+							++i;
+						}
+						sb.AppendLine();
 					}
 				}
 			}
