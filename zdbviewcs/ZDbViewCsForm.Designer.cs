@@ -44,8 +44,6 @@
 			this.tbcMain = new System.Windows.Forms.TabControl();
 			this.tbpTable = new System.Windows.Forms.TabPage();
 			this.grdTable = new System.Windows.Forms.DataGridView();
-			this.tbpTableLog = new System.Windows.Forms.TabPage();
-			this.txtTableLog = new System.Windows.Forms.TextBox();
 			this.tbcGrid = new System.Windows.Forms.TabControl();
 			this.tbpData = new System.Windows.Forms.TabPage();
 			this.grdData = new System.Windows.Forms.DataGridView();
@@ -76,7 +74,6 @@
 			this.tbcMain.SuspendLayout();
 			this.tbpTable.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.grdTable)).BeginInit();
-			this.tbpTableLog.SuspendLayout();
 			this.tbcGrid.SuspendLayout();
 			this.tbpData.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.grdData)).BeginInit();
@@ -282,7 +279,6 @@
 			// tbcMain
 			// 
 			this.tbcMain.Controls.Add(this.tbpTable);
-			this.tbcMain.Controls.Add(this.tbpTableLog);
 			this.tbcMain.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tbcMain.Location = new System.Drawing.Point(0, 0);
 			this.tbcMain.Name = "tbcMain";
@@ -313,30 +309,6 @@
 			this.grdTable.Size = new System.Drawing.Size(286, 226);
 			this.grdTable.TabIndex = 0;
 			this.grdTable.CurrentCellChanged += new System.EventHandler(this.grdTable_CurrentCellChanged);
-			// 
-			// tbpTableLog
-			// 
-			this.tbpTableLog.Controls.Add(this.txtTableLog);
-			this.tbpTableLog.Location = new System.Drawing.Point(4, 22);
-			this.tbpTableLog.Name = "tbpTableLog";
-			this.tbpTableLog.Padding = new System.Windows.Forms.Padding(3);
-			this.tbpTableLog.Size = new System.Drawing.Size(292, 232);
-			this.tbpTableLog.TabIndex = 1;
-			this.tbpTableLog.Text = "TableLog";
-			this.tbpTableLog.UseVisualStyleBackColor = true;
-			// 
-			// txtTableLog
-			// 
-			this.txtTableLog.BackColor = System.Drawing.SystemColors.ButtonFace;
-			this.txtTableLog.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.txtTableLog.Location = new System.Drawing.Point(3, 3);
-			this.txtTableLog.Multiline = true;
-			this.txtTableLog.Name = "txtTableLog";
-			this.txtTableLog.ReadOnly = true;
-			this.txtTableLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.txtTableLog.Size = new System.Drawing.Size(286, 226);
-			this.txtTableLog.TabIndex = 1;
-			this.txtTableLog.WordWrap = false;
 			// 
 			// tbcGrid
 			// 
@@ -512,8 +484,6 @@
 			this.tbcMain.ResumeLayout(false);
 			this.tbpTable.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.grdTable)).EndInit();
-			this.tbpTableLog.ResumeLayout(false);
-			this.tbpTableLog.PerformLayout();
 			this.tbcGrid.ResumeLayout(false);
 			this.tbpData.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.grdData)).EndInit();
@@ -543,11 +513,9 @@
 		private System.Windows.Forms.SplitContainer spcList;
 		private System.Windows.Forms.TabControl tbcMain;
 		private System.Windows.Forms.TabPage tbpTable;
-		private System.Windows.Forms.TabPage tbpTableLog;
 		private System.Windows.Forms.TabControl tbcGrid;
 		private System.Windows.Forms.TabPage tbpData;
 		private System.Windows.Forms.TabPage tbpDataSchema;
-		private System.Windows.Forms.TextBox txtTableLog;
 		private System.Windows.Forms.TextBox txtDataLog;
 		private System.Windows.Forms.TabPage tbpLog;
 		private System.Windows.Forms.TextBox txtLog;
