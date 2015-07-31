@@ -225,6 +225,9 @@ namespace zdbviewcs {
 			txtConnstr.ReadOnly = isconn;
 			OutLog("Db closed.");
 			grdTable.DataSource = null;
+			grdGetSchema.DataSource = null;
+			grdData.DataSource = null;
+			grdDataSchema.DataSource = null;
 			m_CurTableName = null;
 		}
 
@@ -440,6 +443,21 @@ namespace zdbviewcs {
 			DataGridView grd = mnuGrid.SourceControl as DataGridView;
 			if (null == grd) return;
 			//e.Cancel = (null==grd.DataSource);
+		}
+
+		private void btnGetSchema_Click(object sender, EventArgs e) {
+			if (null == m_conn) return;
+			DataGridView grd = grdGetSchema;
+			String s = cboGetSchema.Text.Trim();
+			DataTable dt = null;
+			if (!String.IsNullOrEmpty(s)) {
+				try {
+					dt = m_conn.GetSchema(s);
+				} catch (Exception ex) {
+					MessageBox.Show(this, ex.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+			}
+			grd.DataSource = dt;
 		}
 
 	}
