@@ -188,7 +188,6 @@ namespace zdbviewcs {
 			sb.AppendLine(string.Format("{0}CaseSensitive:\t{1}", indentstr, obj.CaseSensitive));
 			sb.AppendLine(string.Format("{0}ChildRelations:\t{1}", indentstr, obj.ChildRelations));
 			sb.AppendLine(string.Format("{0}Columns:\t{1}", indentstr, obj.Columns));
-			sb.AppendLine(string.Format("{0}Constraints:\t{1}", indentstr, obj.Constraints));
 			sb.AppendLine(string.Format("{0}DisplayExpression:\t{1}", indentstr, obj.DisplayExpression));
 			sb.AppendLine(string.Format("{0}HasErrors:\t{1}", indentstr, obj.HasErrors));
 			sb.AppendLine(string.Format("{0}Locale:\t{1}", indentstr, obj.Locale));
@@ -196,9 +195,116 @@ namespace zdbviewcs {
 			sb.AppendLine(string.Format("{0}Namespace:\t{1}", indentstr, obj.Namespace));
 			sb.AppendLine(string.Format("{0}ParentRelations:\t{1}", indentstr, obj.ParentRelations));
 			sb.AppendLine(string.Format("{0}Prefix:\t{1}", indentstr, obj.Prefix));
-			sb.AppendLine(string.Format("{0}PrimaryKey:\t{1}", indentstr, obj.PrimaryKey));
 			sb.AppendLine(string.Format("{0}Rows:\t{1}", indentstr, obj.Rows));
 			sb.AppendLine(string.Format("{0}TableName:\t{1}", indentstr, obj.TableName));
+			sb.AppendLine(string.Format("{0}PrimaryKey:\t// Length={1}", indentstr, obj.PrimaryKey.Length));
+			foreach (DataColumn dc in obj.PrimaryKey) {
+				sb.AppendLine(string.Format("{0}\t{1}", indentstr, dc));
+			}
+			sb.AppendLine(string.Format("{0}ExtendedProperties:\t{1}", indentstr, obj.ExtendedProperties));
+			PrintPropertyCollection(sb, indentnext, obj.ExtendedProperties);
+			sb.AppendLine(string.Format("{0}Constraints:\t{1}", indentstr, obj.Constraints));
+			PrintConstraintCollection(sb, indentnext, obj.Constraints);
+		}
+
+		/// <summary>
+		/// 打印 ConstraintCollection .
+		/// </summary>
+		/// <param name="sb">输出缓冲区.</param>
+		/// <param name="indent">缩进.</param>
+		/// <param name="obj">对象.</param>
+		public static void PrintConstraintCollection(StringBuilder sb, int indent, ConstraintCollection obj) {
+			int indentnext = indent + 1;
+			String indentstr = GetIndentStr(indent);
+			sb.AppendLine(string.Format("{0}# <{1}>", indentstr, obj.GetType().FullName));
+			sb.AppendLine(string.Format("{0}# Count:\t{1}", indentstr, obj.Count));
+			int i = 0;
+			foreach (Constraint p in obj) {
+				sb.AppendLine(string.Format("{0}[{1}]:\t{2}", indentstr, i, p));
+				PrintConstraint(sb, indentnext, p);
+				++i;
+			}
+		}
+
+		/// <summary>
+		/// 打印 Constraint .
+		/// </summary>
+		/// <param name="sb">输出缓冲区.</param>
+		/// <param name="indent">缩进.</param>
+		/// <param name="obj">对象.</param>
+		public static void PrintConstraint(StringBuilder sb, int indent, Constraint obj) {
+			if (obj is UniqueConstraint) {
+				PrintConstraint_UniqueConstraint(sb, indent, obj as UniqueConstraint);
+			}
+			else if (obj is ForeignKeyConstraint) {
+				PrintConstraint_ForeignKeyConstraint(sb, indent, obj as ForeignKeyConstraint);
+			}
+			else {
+				PrintConstraint_base(sb, indent, obj);
+			}
+		}
+
+		/// <summary>
+		/// 打印 Constraint 基本.
+		/// </summary>
+		/// <param name="sb">输出缓冲区.</param>
+		/// <param name="indent">缩进.</param>
+		/// <param name="obj">对象.</param>
+		private static void PrintConstraint_base(StringBuilder sb, int indent, Constraint obj) {
+			int indentnext = indent + 1;
+			String indentstr = GetIndentStr(indent);
+			sb.AppendLine(string.Format("{0}# <{1}>", indentstr, obj.GetType().FullName));
+			sb.AppendLine(string.Format("{0}ConstraintName:\t{1}", indentstr, obj.ConstraintName));
+			sb.AppendLine(string.Format("{0}Table:\t{1}", indentstr, obj.Table.TableName));
+			sb.AppendLine(string.Format("{0}ExtendedProperties:\t{1}", indentstr, obj.ExtendedProperties));
+			PrintPropertyCollection(sb, indentnext, obj.ExtendedProperties);
+		}
+
+		/// <summary>
+		/// 打印 UniqueConstraint .
+		/// </summary>
+		/// <param name="sb">输出缓冲区.</param>
+		/// <param name="indent">缩进.</param>
+		/// <param name="obj">对象.</param>
+		private static void PrintConstraint_UniqueConstraint(StringBuilder sb, int indent, UniqueConstraint obj) {
+			int indentnext = indent + 1;
+			String indentstr = GetIndentStr(indent);
+			sb.AppendLine(string.Format("{0}# <{1}>", indentstr, obj.GetType().FullName));
+			sb.AppendLine(string.Format("{0}ConstraintName:\t{1}", indentstr, obj.ConstraintName));
+			sb.AppendLine(string.Format("{0}IsPrimaryKey:\t{1}", indentstr, obj.IsPrimaryKey));
+			sb.AppendLine(string.Format("{0}Table:\t{1}", indentstr, obj.Table.TableName));
+			sb.AppendLine(string.Format("{0}Columns:\t// Length={1}", indentstr, obj.Columns.Length));
+			foreach (DataColumn dc in obj.Columns) {
+				sb.AppendLine(string.Format("{0}\t{1}", indentstr, dc));
+			}
+			sb.AppendLine(string.Format("{0}ExtendedProperties:\t{1}", indentstr, obj.ExtendedProperties));
+			PrintPropertyCollection(sb, indentnext, obj.ExtendedProperties);
+		}
+
+		/// <summary>
+		/// 打印 ForeignKeyConstraint .
+		/// </summary>
+		/// <param name="sb">输出缓冲区.</param>
+		/// <param name="indent">缩进.</param>
+		/// <param name="obj">对象.</param>
+		private static void PrintConstraint_ForeignKeyConstraint(StringBuilder sb, int indent, ForeignKeyConstraint obj) {
+			int indentnext = indent + 1;
+			String indentstr = GetIndentStr(indent);
+			sb.AppendLine(string.Format("{0}# <{1}>", indentstr, obj.GetType().FullName));
+			sb.AppendLine(string.Format("{0}AcceptRejectRule:\t{1}", indentstr, obj.AcceptRejectRule));
+			sb.AppendLine(string.Format("{0}ConstraintName:\t{1}", indentstr, obj.ConstraintName));
+			sb.AppendLine(string.Format("{0}DeleteRule:\t{1}", indentstr, obj.DeleteRule));
+			sb.AppendLine(string.Format("{0}RelatedTable:\t{1}", indentstr, obj.RelatedTable));
+			sb.AppendLine(string.Format("{0}Table:\t{1}", indentstr, obj.Table.TableName));
+			sb.AppendLine(string.Format("{0}UpdateRule:\t{1}", indentstr, obj.UpdateRule));
+			sb.AppendLine(string.Format("{0}Columns:\t// Length={1}", indentstr, obj.Columns.Length));
+			foreach (DataColumn dc in obj.Columns) {
+				sb.AppendLine(string.Format("{0}\t{1}", indentstr, dc));
+			}
+			sb.AppendLine(string.Format("{0}RelatedColumns:\t// Length={1}", indentstr, obj.RelatedColumns.Length));
+			foreach (DataColumn dc in obj.RelatedColumns) {
+				sb.AppendLine(string.Format("{0}\t{1}", indentstr, dc));
+			}
 			sb.AppendLine(string.Format("{0}ExtendedProperties:\t{1}", indentstr, obj.ExtendedProperties));
 			PrintPropertyCollection(sb, indentnext, obj.ExtendedProperties);
 		}
@@ -378,15 +484,18 @@ namespace zdbviewcs {
 			int nlimit;
 			if (!int.TryParse(txtLimit.Text, out nlimit)) nlimit = 0;
 			OutLog(ssql);
+			StringBuilder sb = new StringBuilder();
+			sb.AppendLine(ssql);
+			sb.AppendLine();
 			try {
 				grdData.DataSource = null;
 				using (DbCommand cmd = m_conn.CreateCommand()) {
 					cmd.CommandType = CommandType.Text;
 					cmd.CommandText = ssql;
-					StringBuilder sb = new StringBuilder();
 					DataSet dts = new DataSet();
 					using (DbDataAdapter dta = m_provider.CreateDataAdapter()) {
 						dta.SelectCommand = cmd;
+						dta.MissingSchemaAction = MissingSchemaAction.AddWithKey;
 						if (nlimit > 0) {
 							dta.Fill(dts, 0, nlimit, "Table");
 						}
@@ -403,23 +512,24 @@ namespace zdbviewcs {
 					}
 					PrintDataSet(sb, 0, dts);
 					sb.AppendLine();
-					using (DbDataReader dr = cmd.ExecuteReader()) {
+					using (DbDataReader dr = cmd.ExecuteReader(CommandBehavior.KeyInfo)) {
 						PrintDbDataReader(sb, 0, dr);
-						sb.AppendLine();
+						//sb.AppendLine();
 						//
 						DataTable dtt = dr.GetSchemaTable();
 						grdDataSchema.DataSource = dtt;
-						//sb.AppendLine(string.Format("GetSchemaTable:"));
+						sb.AppendLine(string.Format("GetSchemaTable:"));
+						PrintDataTable(sb, 1, dtt);
 						sb.AppendLine(ConvertDataTableToXML(dtt));
 					}
 					sb.AppendLine();
 					//sb.AppendLine(dts.GetXml());
-					txtDataInfo.Text = sb.ToString();
 				}
 			}
 			catch (Exception ex) {
 				OutLog(ex.ToString());
 			}
+			txtDataInfo.Text = sb.ToString();
 		}
 
 		private void ZDbViewCsForm_FormClosed(object sender, FormClosedEventArgs e) {
