@@ -64,6 +64,36 @@ namespace zdbviewcs {
 		}
 
 		/// <summary>
+		/// 取得缩进字符串.
+		/// </summary>
+		/// <param name="indent">缩进值.</param>
+		/// <returns>返回缩进字符串.</returns>
+		public static string GetIndentStr(int indent) {
+			if (indent > 0) {
+				return new string('\t', indent);
+			}
+			return string.Empty;
+		}
+
+		/// <summary>
+		/// 打印_DbDataReader .
+		/// </summary>
+		/// <param name="sb">输出缓冲区.</param>
+		/// <param name="indent">缩进.</param>
+		/// <param name="obj">对象.</param>
+		public static void PrintDbDataReader(StringBuilder sb, int indent, DbDataReader obj) {
+			int indentnext = indent + 1;
+			String indentstr = GetIndentStr(indent);
+			sb.AppendLine(string.Format("{0}# <DbDataReader>", indentstr));
+			sb.AppendLine(string.Format("{0}Depth:\t{1}", indentstr, obj.Depth));
+			sb.AppendLine(string.Format("{0}FieldCount:\t{1}", indentstr, obj.FieldCount));
+			sb.AppendLine(string.Format("{0}HasRows:\t{1}", indentstr, obj.HasRows));
+			sb.AppendLine(string.Format("{0}IsClosed:\t{1}", indentstr, obj.IsClosed));
+			sb.AppendLine(string.Format("{0}RecordsAffected:\t{1}", indentstr, obj.RecordsAffected));
+			sb.AppendLine(string.Format("{0}VisibleFieldCount:\t{1}", indentstr, obj.VisibleFieldCount));
+		}
+
+		/// <summary>
 		/// 输出日志.
 		/// </summary>
 		/// <param name="s">日志文本.</param>
@@ -243,6 +273,7 @@ namespace zdbviewcs {
 				using (DbCommand cmd = m_conn.CreateCommand()) {
 					cmd.CommandType = CommandType.Text;
 					cmd.CommandText = ssql;
+					StringBuilder sb = new StringBuilder();
 					using(DbDataAdapter dta = m_provider.CreateDataAdapter()) {
 						dta.SelectCommand = cmd;
 						DataSet dts = new DataSet();
@@ -261,9 +292,13 @@ namespace zdbviewcs {
 						//grdDataSchema.DataSource = dtt;
 					}
 					using (DbDataReader dr = cmd.ExecuteReader()) {
+						PrintDbDataReader(sb, 0, dr);
+						//
 						DataTable dtt = dr.GetSchemaTable();
 						grdDataSchema.DataSource = dtt;
+						sb.AppendLine(ConvertDataTableToXML(dtt));
 					}
+					txtDataInfo.Text = sb.ToString();
 				}
 			}
 			catch (Exception ex) {
