@@ -182,7 +182,6 @@ namespace zdbviewcs {
 			sb.AppendLine(string.Format("{0}# <{1}>", indentstr, obj.GetType().FullName));
 			sb.AppendLine(string.Format("{0}CaseSensitive:\t{1}", indentstr, obj.CaseSensitive));
 			sb.AppendLine(string.Format("{0}ChildRelations:\t{1}", indentstr, obj.ChildRelations));
-			sb.AppendLine(string.Format("{0}Columns:\t{1}", indentstr, obj.Columns));
 			sb.AppendLine(string.Format("{0}DisplayExpression:\t{1}", indentstr, obj.DisplayExpression));
 			sb.AppendLine(string.Format("{0}HasErrors:\t{1}", indentstr, obj.HasErrors));
 			sb.AppendLine(string.Format("{0}Locale:\t{1}", indentstr, obj.Locale));
@@ -198,8 +197,60 @@ namespace zdbviewcs {
 			}
 			sb.AppendLine(string.Format("{0}ExtendedProperties:\t{1}", indentstr, obj.ExtendedProperties));
 			PrintPropertyCollection(sb, indentnext, obj.ExtendedProperties);
+			sb.AppendLine(string.Format("{0}Columns:\t{1}", indentstr, obj.Columns));
+			PrintDataColumnCollection(sb, indentnext, obj.Columns);
 			sb.AppendLine(string.Format("{0}Constraints:\t{1}", indentstr, obj.Constraints));
 			PrintConstraintCollection(sb, indentnext, obj.Constraints);
+		}
+
+		/// <summary>
+		/// 打印 DataColumnCollection .
+		/// </summary>
+		/// <param name="sb">输出缓冲区.</param>
+		/// <param name="indent">缩进.</param>
+		/// <param name="obj">对象.</param>
+		public static void PrintDataColumnCollection(StringBuilder sb, int indent, DataColumnCollection obj) {
+			int indentnext = indent + 1;
+			String indentstr = GetIndentStr(indent);
+			sb.AppendLine(string.Format("{0}# <{1}>", indentstr, obj.GetType().FullName));
+			sb.AppendLine(string.Format("{0}# Count:\t{1}", indentstr, obj.Count));
+			int i = 0;
+			foreach (DataColumn p in obj) {
+				sb.AppendLine(string.Format("{0}[{1}]:\t{2}", indentstr, i, p));
+				PrintDataColumn(sb, indentnext, p);
+				++i;
+			}
+		}
+
+		/// <summary>
+		/// 打印 DataColumn .
+		/// </summary>
+		/// <param name="sb">输出缓冲区.</param>
+		/// <param name="indent">缩进.</param>
+		/// <param name="obj">对象.</param>
+		public static void PrintDataColumn(StringBuilder sb, int indent, DataColumn obj) {
+			int indentnext = indent + 1;
+			String indentstr = GetIndentStr(indent);
+			sb.AppendLine(string.Format("{0}# <{1}>", indentstr, obj.GetType().FullName));
+			sb.AppendLine(string.Format("{0}AllowDBNull:\t{1}", indentstr, obj.AllowDBNull));
+			sb.AppendLine(string.Format("{0}AutoIncrement:\t{1}", indentstr, obj.AutoIncrement));
+			sb.AppendLine(string.Format("{0}AutoIncrementSeed:\t{1}", indentstr, obj.AutoIncrementSeed));
+			sb.AppendLine(string.Format("{0}AutoIncrementStep:\t{1}", indentstr, obj.AutoIncrementStep));
+			sb.AppendLine(string.Format("{0}Caption:\t{1}", indentstr, obj.Caption));
+			sb.AppendLine(string.Format("{0}ColumnMapping:\t{1}", indentstr, obj.ColumnMapping));
+			sb.AppendLine(string.Format("{0}ColumnName:\t{1}", indentstr, obj.ColumnName));
+			sb.AppendLine(string.Format("{0}DataType:\t{1}", indentstr, obj.DataType));
+			sb.AppendLine(string.Format("{0}DateTimeMode:\t{1}", indentstr, obj.DateTimeMode));
+			sb.AppendLine(string.Format("{0}DefaultValue:\t{1}", indentstr, obj.DefaultValue));
+			sb.AppendLine(string.Format("{0}Expression:\t{1}", indentstr, obj.Expression));
+			sb.AppendLine(string.Format("{0}MaxLength:\t{1}", indentstr, obj.MaxLength));
+			sb.AppendLine(string.Format("{0}Namespace:\t{1}", indentstr, obj.Namespace));
+			sb.AppendLine(string.Format("{0}Ordinal:\t{1}", indentstr, obj.Ordinal));
+			sb.AppendLine(string.Format("{0}Prefix:\t{1}", indentstr, obj.Prefix));
+			sb.AppendLine(string.Format("{0}ReadOnly:\t{1}", indentstr, obj.ReadOnly));
+			sb.AppendLine(string.Format("{0}Unique:\t{1}", indentstr, obj.Unique));
+			sb.AppendLine(string.Format("{0}ExtendedProperties:\t{1}", indentstr, obj.ExtendedProperties));
+			PrintPropertyCollection(sb, indentnext, obj.ExtendedProperties);
 		}
 
 		/// <summary>
