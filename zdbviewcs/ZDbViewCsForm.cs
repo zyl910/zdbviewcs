@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -91,6 +92,115 @@ namespace zdbviewcs {
 			sb.AppendLine(string.Format("{0}IsClosed:\t{1}", indentstr, obj.IsClosed));
 			sb.AppendLine(string.Format("{0}RecordsAffected:\t{1}", indentstr, obj.RecordsAffected));
 			sb.AppendLine(string.Format("{0}VisibleFieldCount:\t{1}", indentstr, obj.VisibleFieldCount));
+		}
+
+		/// <summary>
+		/// 打印 PropertyCollection .
+		/// </summary>
+		/// <param name="sb">输出缓冲区.</param>
+		/// <param name="indent">缩进.</param>
+		/// <param name="obj">对象.</param>
+		public static void PrintPropertyCollection(StringBuilder sb, int indent, PropertyCollection obj) {
+			int indentnext = indent + 1;
+			String indentstr = GetIndentStr(indent);
+			sb.AppendLine(string.Format("{0}# <{1}>", indentstr, obj.GetType().FullName));
+			sb.AppendLine(string.Format("{0}# Count:\t{1}", indentstr, obj.Count));
+			foreach (DictionaryEntry de in obj) {
+				sb.AppendLine(string.Format("{0}{1}:\t{2}", indentstr, de.Key, de.Value));
+			}
+		}
+
+		/// <summary>
+		/// 打印 DataRelationCollection .
+		/// </summary>
+		/// <param name="sb">输出缓冲区.</param>
+		/// <param name="indent">缩进.</param>
+		/// <param name="obj">对象.</param>
+		public static void PrintDataRelationCollection(StringBuilder sb, int indent, DataRelationCollection obj) {
+			int indentnext = indent + 1;
+			String indentstr = GetIndentStr(indent);
+			sb.AppendLine(string.Format("{0}# <{1}>", indentstr, obj.GetType().FullName));
+			sb.AppendLine(string.Format("{0}# Count:\t{1}", indentstr, obj.Count));
+			int i = 0;
+			foreach (DataRelation p in obj) {
+				sb.AppendLine(string.Format("{0}[{1}]:\t{2}", indentstr, i, p));
+				++i;
+			}
+		}
+
+		/// <summary>
+		/// 打印_DataSet .
+		/// </summary>
+		/// <param name="sb">输出缓冲区.</param>
+		/// <param name="indent">缩进.</param>
+		/// <param name="obj">对象.</param>
+		public static void PrintDataSet(StringBuilder sb, int indent, DataSet obj) {
+			int indentnext = indent + 1;
+			String indentstr = GetIndentStr(indent);
+			sb.AppendLine(string.Format("{0}# <DataSet>", indentstr));
+			sb.AppendLine(string.Format("{0}CaseSensitive:\t{1}", indentstr, obj.CaseSensitive));
+			sb.AppendLine(string.Format("{0}DataSetName:\t{1}", indentstr, obj.DataSetName));
+			sb.AppendLine(string.Format("{0}EnforceConstraints:\t{1}", indentstr, obj.EnforceConstraints));
+			sb.AppendLine(string.Format("{0}HasErrors:\t{1}", indentstr, obj.HasErrors));
+			sb.AppendLine(string.Format("{0}IsInitialized:\t{1}", indentstr, obj.IsInitialized));
+			sb.AppendLine(string.Format("{0}Locale:\t{1}", indentstr, obj.Locale));
+			sb.AppendLine(string.Format("{0}Namespace:\t{1}", indentstr, obj.Namespace));
+			sb.AppendLine(string.Format("{0}Prefix:\t{1}", indentstr, obj.Prefix));
+			sb.AppendLine(string.Format("{0}RemotingFormat:\t{1}", indentstr, obj.RemotingFormat));
+			sb.AppendLine(string.Format("{0}SchemaSerializationMode:\t{1}", indentstr, obj.SchemaSerializationMode));
+			sb.AppendLine(string.Format("{0}ExtendedProperties:\t{1}", indentstr, obj.ExtendedProperties));
+			PrintPropertyCollection(sb, indentnext, obj.ExtendedProperties);
+			sb.AppendLine(string.Format("{0}Relations:\t{1}", indentstr, obj.Relations));
+			PrintDataRelationCollection(sb, indentnext, obj.Relations);
+			sb.AppendLine(string.Format("{0}Tables:\t{1}", indentstr, obj.Tables));
+			PrintDataTableCollection(sb, indentnext, obj.Tables);
+		}
+
+		/// <summary>
+		/// 打印 DataTableCollection .
+		/// </summary>
+		/// <param name="sb">输出缓冲区.</param>
+		/// <param name="indent">缩进.</param>
+		/// <param name="obj">对象.</param>
+		public static void PrintDataTableCollection(StringBuilder sb, int indent, DataTableCollection obj) {
+			int indentnext = indent + 1;
+			String indentstr = GetIndentStr(indent);
+			sb.AppendLine(string.Format("{0}# <{1}>", indentstr, obj.GetType().FullName));
+			sb.AppendLine(string.Format("{0}# Count:\t{1}", indentstr, obj.Count));
+			int i = 0;
+			foreach (DataTable p in obj) {
+				sb.AppendLine(string.Format("{0}[{1}]:\t{2}", indentstr, i, p));
+				PrintDataTable(sb, indentnext, p);
+				++i;
+			}
+		}
+
+		/// <summary>
+		/// 打印 DataTable .
+		/// </summary>
+		/// <param name="sb">输出缓冲区.</param>
+		/// <param name="indent">缩进.</param>
+		/// <param name="obj">对象.</param>
+		public static void PrintDataTable(StringBuilder sb, int indent, DataTable obj) {
+			int indentnext = indent + 1;
+			String indentstr = GetIndentStr(indent);
+			sb.AppendLine(string.Format("{0}# <{1}>", indentstr, obj.GetType().FullName));
+			sb.AppendLine(string.Format("{0}CaseSensitive:\t{1}", indentstr, obj.CaseSensitive));
+			sb.AppendLine(string.Format("{0}ChildRelations:\t{1}", indentstr, obj.ChildRelations));
+			sb.AppendLine(string.Format("{0}Columns:\t{1}", indentstr, obj.Columns));
+			sb.AppendLine(string.Format("{0}Constraints:\t{1}", indentstr, obj.Constraints));
+			sb.AppendLine(string.Format("{0}DisplayExpression:\t{1}", indentstr, obj.DisplayExpression));
+			sb.AppendLine(string.Format("{0}HasErrors:\t{1}", indentstr, obj.HasErrors));
+			sb.AppendLine(string.Format("{0}Locale:\t{1}", indentstr, obj.Locale));
+			sb.AppendLine(string.Format("{0}MinimumCapacity:\t{1}", indentstr, obj.MinimumCapacity));
+			sb.AppendLine(string.Format("{0}Namespace:\t{1}", indentstr, obj.Namespace));
+			sb.AppendLine(string.Format("{0}ParentRelations:\t{1}", indentstr, obj.ParentRelations));
+			sb.AppendLine(string.Format("{0}Prefix:\t{1}", indentstr, obj.Prefix));
+			sb.AppendLine(string.Format("{0}PrimaryKey:\t{1}", indentstr, obj.PrimaryKey));
+			sb.AppendLine(string.Format("{0}Rows:\t{1}", indentstr, obj.Rows));
+			sb.AppendLine(string.Format("{0}TableName:\t{1}", indentstr, obj.TableName));
+			sb.AppendLine(string.Format("{0}ExtendedProperties:\t{1}", indentstr, obj.ExtendedProperties));
+			PrintPropertyCollection(sb, indentnext, obj.ExtendedProperties);
 		}
 
 		/// <summary>
@@ -274,9 +384,9 @@ namespace zdbviewcs {
 					cmd.CommandType = CommandType.Text;
 					cmd.CommandText = ssql;
 					StringBuilder sb = new StringBuilder();
-					using(DbDataAdapter dta = m_provider.CreateDataAdapter()) {
+					DataSet dts = new DataSet();
+					using (DbDataAdapter dta = m_provider.CreateDataAdapter()) {
 						dta.SelectCommand = cmd;
-						DataSet dts = new DataSet();
 						if (nlimit > 0) {
 							dta.Fill(dts, 0, nlimit, "Table");
 						}
@@ -291,13 +401,19 @@ namespace zdbviewcs {
 						//dta.FillSchema(dtt, SchemaType.Source);
 						//grdDataSchema.DataSource = dtt;
 					}
+					PrintDataSet(sb, 0, dts);
+					sb.AppendLine();
 					using (DbDataReader dr = cmd.ExecuteReader()) {
 						PrintDbDataReader(sb, 0, dr);
+						sb.AppendLine();
 						//
 						DataTable dtt = dr.GetSchemaTable();
 						grdDataSchema.DataSource = dtt;
+						//sb.AppendLine(string.Format("GetSchemaTable:"));
 						sb.AppendLine(ConvertDataTableToXML(dtt));
 					}
+					sb.AppendLine();
+					//sb.AppendLine(dts.GetXml());
 					txtDataInfo.Text = sb.ToString();
 				}
 			}
