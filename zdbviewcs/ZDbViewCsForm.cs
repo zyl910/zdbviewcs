@@ -32,11 +32,6 @@ namespace zdbviewcs {
 		private string m_CurTableName = null;
 
 		/// <summary>
-		/// 当前弹出菜单所关联的网格控件.
-		/// </summary>
-		private DataGridView m_CurPopupGrid = null;
-
-		/// <summary>
 		/// 将数据表转为xml.
 		/// </summary>
 		/// <param name="xmlDS"></param>
