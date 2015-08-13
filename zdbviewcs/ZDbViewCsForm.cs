@@ -633,7 +633,8 @@ namespace zdbviewcs {
 				}
 			}
 			catch (Exception ex) {
-				OutLog(ex.ToString());
+				//OutLog(ex.ToString());
+				sb.AppendLine(ex.ToString());
 			}
 			txtDataInfo.Text = sb.ToString();
 		}
