@@ -189,7 +189,6 @@ namespace zdbviewcs {
 			sb.AppendLine(string.Format("{0}Namespace:\t{1}", indentstr, obj.Namespace));
 			sb.AppendLine(string.Format("{0}ParentRelations:\t{1}", indentstr, obj.ParentRelations));
 			sb.AppendLine(string.Format("{0}Prefix:\t{1}", indentstr, obj.Prefix));
-			sb.AppendLine(string.Format("{0}Rows:\t{1}", indentstr, obj.Rows));
 			sb.AppendLine(string.Format("{0}TableName:\t{1}", indentstr, obj.TableName));
 			sb.AppendLine(string.Format("{0}PrimaryKey:\t// Length={1}", indentstr, obj.PrimaryKey.Length));
 			foreach (DataColumn dc in obj.PrimaryKey) {
@@ -197,6 +196,8 @@ namespace zdbviewcs {
 			}
 			sb.AppendLine(string.Format("{0}ExtendedProperties:\t{1}", indentstr, obj.ExtendedProperties));
 			PrintPropertyCollection(sb, indentnext, obj.ExtendedProperties);
+			sb.AppendLine(string.Format("{0}Rows:\t{1}", indentstr, obj.Rows));
+			PrintDataRowCollection(sb, indentnext, obj.Rows);
 			sb.AppendLine(string.Format("{0}Columns:\t{1}", indentstr, obj.Columns));
 			PrintDataColumnCollection(sb, indentnext, obj.Columns);
 			sb.AppendLine(string.Format("{0}Constraints:\t{1}", indentstr, obj.Constraints));
@@ -353,6 +354,41 @@ namespace zdbviewcs {
 			}
 			sb.AppendLine(string.Format("{0}ExtendedProperties:\t{1}", indentstr, obj.ExtendedProperties));
 			PrintPropertyCollection(sb, indentnext, obj.ExtendedProperties);
+		}
+
+		/// <summary>
+		/// 打印 DataRowCollection .
+		/// </summary>
+		/// <param name="sb">输出缓冲区.</param>
+		/// <param name="indent">缩进.</param>
+		/// <param name="obj">对象.</param>
+		public static void PrintDataRowCollection(StringBuilder sb, int indent, DataRowCollection obj) {
+			int indentnext = indent + 1;
+			String indentstr = GetIndentStr(indent);
+			sb.AppendLine(string.Format("{0}# <{1}>", indentstr, obj.GetType().FullName));
+			sb.AppendLine(string.Format("{0}# Count:\t{1}", indentstr, obj.Count));
+			if (obj.Count > 0) {
+				for (int i = 0; i < obj.Count && i<1; ++i) {
+					DataRow p = obj[i];
+					sb.AppendLine(string.Format("{0}[{1}]:\t{2}", indentstr, i, p));
+					PrintDataRow(sb, indentnext, p);
+				}
+			}
+		}
+
+		/// <summary>
+		/// 打印 DataRow .
+		/// </summary>
+		/// <param name="sb">输出缓冲区.</param>
+		/// <param name="indent">缩进.</param>
+		/// <param name="obj">对象.</param>
+		public static void PrintDataRow(StringBuilder sb, int indent, DataRow obj) {
+			int indentnext = indent + 1;
+			String indentstr = GetIndentStr(indent);
+			sb.AppendLine(string.Format("{0}# <{1}>", indentstr, obj.GetType().FullName));
+			sb.AppendLine(string.Format("{0}HasErrors:\t{1}", indentstr, obj.HasErrors));
+			sb.AppendLine(string.Format("{0}RowError:\t{1}", indentstr, obj.RowError));
+			sb.AppendLine(string.Format("{0}RowState:\t{1}", indentstr, obj.RowState));
 		}
 
 		/// <summary>
