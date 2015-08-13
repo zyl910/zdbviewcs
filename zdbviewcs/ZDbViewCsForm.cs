@@ -14,6 +14,9 @@ using System.Xml;
 namespace zdbviewcs {
 	/// <summary>
 	/// zyl910's Database viewer (C#) (C#版数据库查看器).
+	/// 
+	/// <para>Git:	https://github.com/zyl910/zdbviewcs </para>
+	/// <para>Blog:	http://www.cnblogs.com/zyl910/tag/zdbviewcs/ </para>
 	/// </summary>
 	public partial class ZDbViewCsForm : Form {
 		/// <summary>
