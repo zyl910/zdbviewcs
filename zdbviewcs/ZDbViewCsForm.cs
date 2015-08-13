@@ -119,8 +119,30 @@ namespace zdbviewcs {
 			int i = 0;
 			foreach (DataRelation p in obj) {
 				sb.AppendLine(string.Format("{0}[{1}]:\t{2}", indentstr, i, p));
+				PrintDataRelation(sb, indentnext, p);
 				++i;
 			}
+		}
+
+		/// <summary>
+		/// 打印 DataRelation .
+		/// </summary>
+		/// <param name="sb">输出缓冲区.</param>
+		/// <param name="indent">缩进.</param>
+		/// <param name="obj">对象.</param>
+		public static void PrintDataRelation(StringBuilder sb, int indent, DataRelation obj) {
+			int indentnext = indent + 1;
+			String indentstr = GetIndentStr(indent);
+			sb.AppendLine(string.Format("{0}# <{1}>", indentstr, obj.GetType().FullName));
+			sb.AppendLine(string.Format("{0}RelationName:\t{1}", indentstr, obj.RelationName));
+			sb.AppendLine(string.Format("{0}ChildColumns:\t{1}", indentstr, obj.ChildColumns));
+			sb.AppendLine(string.Format("{0}ChildKeyConstraint:\t{1}", indentstr, obj.ChildKeyConstraint));
+			sb.AppendLine(string.Format("{0}ChildTable:\t{1}", indentstr, obj.ChildTable));
+			sb.AppendLine(string.Format("{0}Nested:\t{1}", indentstr, obj.Nested));
+			sb.AppendLine(string.Format("{0}ParentColumns:\t{1}", indentstr, obj.ParentColumns));
+			sb.AppendLine(string.Format("{0}ParentKeyConstraint:\t{1}", indentstr, obj.ParentKeyConstraint));
+			sb.AppendLine(string.Format("{0}ParentTable:\t{1}", indentstr, obj.ParentTable));
+			PrintPropertyCollection(sb, indentnext, obj.ExtendedProperties);
 		}
 
 		/// <summary>
@@ -181,13 +203,11 @@ namespace zdbviewcs {
 			String indentstr = GetIndentStr(indent);
 			sb.AppendLine(string.Format("{0}# <{1}>", indentstr, obj.GetType().FullName));
 			sb.AppendLine(string.Format("{0}CaseSensitive:\t{1}", indentstr, obj.CaseSensitive));
-			sb.AppendLine(string.Format("{0}ChildRelations:\t{1}", indentstr, obj.ChildRelations));
 			sb.AppendLine(string.Format("{0}DisplayExpression:\t{1}", indentstr, obj.DisplayExpression));
 			sb.AppendLine(string.Format("{0}HasErrors:\t{1}", indentstr, obj.HasErrors));
 			sb.AppendLine(string.Format("{0}Locale:\t{1}", indentstr, obj.Locale));
 			sb.AppendLine(string.Format("{0}MinimumCapacity:\t{1}", indentstr, obj.MinimumCapacity));
 			sb.AppendLine(string.Format("{0}Namespace:\t{1}", indentstr, obj.Namespace));
-			sb.AppendLine(string.Format("{0}ParentRelations:\t{1}", indentstr, obj.ParentRelations));
 			sb.AppendLine(string.Format("{0}Prefix:\t{1}", indentstr, obj.Prefix));
 			sb.AppendLine(string.Format("{0}TableName:\t{1}", indentstr, obj.TableName));
 			sb.AppendLine(string.Format("{0}PrimaryKey:\t// Length={1}", indentstr, obj.PrimaryKey.Length));
@@ -202,6 +222,10 @@ namespace zdbviewcs {
 			PrintDataColumnCollection(sb, indentnext, obj.Columns);
 			sb.AppendLine(string.Format("{0}Constraints:\t{1}", indentstr, obj.Constraints));
 			PrintConstraintCollection(sb, indentnext, obj.Constraints);
+			sb.AppendLine(string.Format("{0}ChildRelations:\t{1}", indentstr, obj.ChildRelations));
+			PrintDataRelationCollection(sb, indentnext, obj.ChildRelations);
+			sb.AppendLine(string.Format("{0}ParentRelations:\t{1}", indentstr, obj.ParentRelations));
+			PrintDataRelationCollection(sb, indentnext, obj.ParentRelations);
 		}
 
 		/// <summary>
